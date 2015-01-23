@@ -12,6 +12,7 @@
 		158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158403701A70B5E2002EE42F /* NumberParsingTests.swift */; };
 		1584037B1A70B688002EE42F /* SVGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037A1A70B688002EE42F /* SVGPath.swift */; };
 		1584037D1A715031002EE42F /* MoveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037C1A715031002EE42F /* MoveToTests.swift */; };
+		15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FB74DC1A722365009787C3 /* LineToTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		158403701A70B5E2002EE42F /* NumberParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberParsingTests.swift; sourceTree = "<group>"; };
 		1584037A1A70B688002EE42F /* SVGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGPath.swift; sourceTree = "<group>"; };
 		1584037C1A715031002EE42F /* MoveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTests.swift; sourceTree = "<group>"; };
+		15FB74DC1A722365009787C3 /* LineToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineToTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			children = (
 				158403701A70B5E2002EE42F /* NumberParsingTests.swift */,
 				1584037C1A715031002EE42F /* MoveToTests.swift */,
+				15FB74DC1A722365009787C3 /* LineToTests.swift */,
 				1584036E1A70B5E2002EE42F /* Supporting Files */,
 			);
 			path = SVGPathTests;
@@ -225,6 +228,7 @@
 			files = (
 				158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */,
 				1584037D1A715031002EE42F /* MoveToTests.swift in Sources */,
+				15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +412,7 @@
 				158403761A70B5E2002EE42F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		158403771A70B5E2002EE42F /* Build configuration list for PBXNativeTarget "SVGPathTests" */ = {
 			isa = XCConfigurationList;
@@ -416,6 +421,7 @@
 				158403791A70B5E2002EE42F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

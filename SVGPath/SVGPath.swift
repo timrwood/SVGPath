@@ -17,8 +17,10 @@ public class SVGPath {
     public init (_ string: String) {
         for char in string {
             switch char {
-            case "M": switchBuilder(singlePointBuilder(SVGCommand.Kind.Move, true))
-            case "m": switchBuilder(singlePointBuilder(SVGCommand.Kind.Move, false))
+            case "M": switchBuilder(singlePointBuilder(.Move, true))
+            case "m": switchBuilder(singlePointBuilder(.Move, false))
+            case "L": switchBuilder(singlePointBuilder(.Line, true))
+            case "l": switchBuilder(singlePointBuilder(.Line, false))
             default: numbers.append(char)
             }
         }
