@@ -19,13 +19,35 @@ class MoveToTests: XCTestCase {
         XCTAssertEqual(actual, expect, "Should parse a single move to call")
     }
     
-    func testMultipleMoveTo() {
+    func testMultipleMoveToSameCommand() {
         let actual:[SVGCommand] = SVGPath("M1 2 3 4").commands
         let expect:[SVGCommand] = [
             SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Move),
             SVGCommand(CGPoint(x: 3.0, y:4.0), type: .Move)
         ]
         
-        XCTAssertEqual(actual, expect, "Should parse multiple move to calls")
+        XCTAssertEqual(actual, expect, "Should parse multiple move to calls with repeated numbers")
+    }
+    
+    func testMultipleMoveToNewCommands() {
+        let actual:[SVGCommand] = SVGPath("M1 2M3 4").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Move),
+            SVGCommand(CGPoint(x: 3.0, y:4.0), type: .Move)
+        ]
+        
+        XCTAssertEqual(actual, expect, "Should parse multiple move to calls with new commands")
+    }
+    
+    func testMultipleMoveToRelative() {
+        let actual:[SVGCommand] = SVGPath("M1 2m1 2m5 6 1 1").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Move),
+            SVGCommand(CGPoint(x: 2.0, y:4.0), type: .Move),
+            SVGCommand(CGPoint(x: 7.0, y:10.0), type: .Move),
+            SVGCommand(CGPoint(x: 8.0, y:11.0), type: .Move)
+        ]
+        
+        XCTAssertEqual(actual, expect, "Should parse relative move to calls")
     }
 }

@@ -17,7 +17,8 @@ public class SVGPath {
     public init (_ string: String) {
         for char in string {
             switch char {
-            case "M": switchBuilder(moveBuilder)
+            case "M": switchBuilder(singlePointBuilder(SVGCommand.Kind.Move, true))
+            case "m": switchBuilder(singlePointBuilder(SVGCommand.Kind.Move, false))
             default: numbers.append(char)
             }
         }
@@ -33,6 +34,7 @@ public class SVGPath {
         if let lastBuilder = builder {
             commands += lastBuilder(numbers: SVGPath.parseNumbers(numbers), last: commands.last)
         }
+        numbers = ""
     }
 }
 
@@ -79,15 +81,15 @@ public struct SVGCommand: Equatable {
     public var point:CGPoint
     public var control1:CGPoint
     public var control2:CGPoint
-    public var type:Type
+    public var type:SVGCommand.Kind
     
-    public enum Type {
+    public enum Kind {
         case Move
         case Line
         case CubicCurve
     }
     
-    public init (_ point: CGPoint, type: Type) {
+    public init (_ point: CGPoint, type: SVGCommand.Kind) {
         self.point = point
         self.control1 = point
         self.control2 = point
@@ -107,14 +109,30 @@ func pointAtIndex (array: [Float], index: Int) -> CGPoint {
 
 // MARK: MoveTo
 
-func moveBuilder (numbers: [Float], last: SVGCommand?) -> [SVGCommand] {
-    var out: [SVGCommand] = []
-    let count = (numbers.count / 2) * 2
-    for var i = 0; i < count; i += 2 {
-        let point = pointAtIndex(numbers, i)
-        out.append(SVGCommand(point, type: .Move))
+func singlePointBuilder (type: SVGCommand.Kind, absolute: Bool) -> SVGCommandBuilder {
+    func builder(numbers: [Float], last: SVGCommand?) -> [SVGCommand] {
+        var out: [SVGCommand] = []
+        var lastCommand = last
+        
+        let count = (numbers.count / 2) * 2
+        
+        for var i = 0; i < count; i += 2 {
+            var point = pointAtIndex(numbers, i)
+            
+            if !absolute {
+                if let last = lastCommand {
+                    point.x += last.point.x
+                    point.y += last.point.y
+                }
+            }
+            
+            var command = SVGCommand(point, type: type)
+            out.append(command)
+            lastCommand = command
+        }
+        return out
     }
-    return out
+    return builder
 }
 
 
