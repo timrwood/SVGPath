@@ -11,6 +11,7 @@
 		1584036A1A70B5E1002EE42F /* SVGPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1584035E1A70B5E1002EE42F /* SVGPath.framework */; };
 		158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158403701A70B5E2002EE42F /* NumberParsingTests.swift */; };
 		1584037B1A70B688002EE42F /* SVGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037A1A70B688002EE42F /* SVGPath.swift */; };
+		1584037D1A715031002EE42F /* MoveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037C1A715031002EE42F /* MoveToTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		1584036F1A70B5E2002EE42F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		158403701A70B5E2002EE42F /* NumberParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberParsingTests.swift; sourceTree = "<group>"; };
 		1584037A1A70B688002EE42F /* SVGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGPath.swift; sourceTree = "<group>"; };
+		1584037C1A715031002EE42F /* MoveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				158403701A70B5E2002EE42F /* NumberParsingTests.swift */,
+				1584037C1A715031002EE42F /* MoveToTests.swift */,
 				1584036E1A70B5E2002EE42F /* Supporting Files */,
 			);
 			path = SVGPathTests;
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */,
+				1584037D1A715031002EE42F /* MoveToTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,13 +7,36 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public class SVGPath {
+    public var commands: [SVGCommand] = []
+    var builder: SVGCommandBuilder?
+    var numbers = ""
+
+    public init (_ string: String) {
+        for char in string {
+            switch char {
+            case "M": switchBuilder(moveBuilder)
+            default: numbers.append(char)
+            }
+        }
+        finishLastCommand()
+    }
     
+    private func switchBuilder (builder: SVGCommandBuilder) {
+        finishLastCommand()
+        self.builder = builder
+    }
+    
+    private func finishLastCommand () {
+        if let lastBuilder = builder {
+            commands += lastBuilder(numbers: SVGPath.parseNumbers(numbers), last: commands.last)
+        }
+    }
 }
 
 // MARK: Numbers
-
 
 private let numberSet = NSCharacterSet(charactersInString: "-.0123456789eE")
 private let numberFormatter = NSNumberFormatter()
@@ -49,3 +72,59 @@ public extension SVGPath {
         }
     }
 }
+
+// MARK: Commands
+
+public struct SVGCommand: Equatable {
+    public var point:CGPoint
+    public var control1:CGPoint
+    public var control2:CGPoint
+    public var type:Type
+    
+    public enum Type {
+        case Move
+        case Line
+        case CubicCurve
+    }
+    
+    public init (_ point: CGPoint, type: Type) {
+        self.point = point
+        self.control1 = point
+        self.control2 = point
+        self.type = type
+    }
+}
+
+public func == (lhs: SVGCommand, rhs: SVGCommand) -> Bool {
+    return lhs.point == rhs.point && lhs.control1 == rhs.control1 && lhs.control2 == rhs.control2
+}
+
+typealias SVGCommandBuilder = (numbers: [Float], last: SVGCommand?) -> [SVGCommand]
+
+func pointAtIndex (array: [Float], index: Int) -> CGPoint {
+    return CGPoint(x: Double(array[index]), y: Double(array[index + 1]))
+}
+
+// MARK: MoveTo
+
+func moveBuilder (numbers: [Float], last: SVGCommand?) -> [SVGCommand] {
+    var out: [SVGCommand] = []
+    let count = (numbers.count / 2) * 2
+    for var i = 0; i < count; i += 2 {
+        let point = pointAtIndex(numbers, i)
+        out.append(SVGCommand(point, type: .Move))
+    }
+    return out
+}
+
+
+
+
+
+
+
+
+
+
+
+
