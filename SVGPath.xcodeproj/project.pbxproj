@@ -12,6 +12,7 @@
 		158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158403701A70B5E2002EE42F /* NumberParsingTests.swift */; };
 		1584037B1A70B688002EE42F /* SVGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037A1A70B688002EE42F /* SVGPath.swift */; };
 		1584037D1A715031002EE42F /* MoveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037C1A715031002EE42F /* MoveToTests.swift */; };
+		15BB0A751A722A3F0033C83A /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB0A741A722A3F0033C83A /* TestHelpers.swift */; };
 		15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FB74DC1A722365009787C3 /* LineToTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		158403701A70B5E2002EE42F /* NumberParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberParsingTests.swift; sourceTree = "<group>"; };
 		1584037A1A70B688002EE42F /* SVGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGPath.swift; sourceTree = "<group>"; };
 		1584037C1A715031002EE42F /* MoveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTests.swift; sourceTree = "<group>"; };
+		15BB0A741A722A3F0033C83A /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		15FB74DC1A722365009787C3 /* LineToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineToTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,9 +97,10 @@
 		1584036D1A70B5E2002EE42F /* SVGPathTests */ = {
 			isa = PBXGroup;
 			children = (
-				158403701A70B5E2002EE42F /* NumberParsingTests.swift */,
-				1584037C1A715031002EE42F /* MoveToTests.swift */,
 				15FB74DC1A722365009787C3 /* LineToTests.swift */,
+				1584037C1A715031002EE42F /* MoveToTests.swift */,
+				158403701A70B5E2002EE42F /* NumberParsingTests.swift */,
+				15BB0A741A722A3F0033C83A /* TestHelpers.swift */,
 				1584036E1A70B5E2002EE42F /* Supporting Files */,
 			);
 			path = SVGPathTests;
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15BB0A751A722A3F0033C83A /* TestHelpers.swift in Sources */,
 				158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */,
 				1584037D1A715031002EE42F /* MoveToTests.swift in Sources */,
 				15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */,

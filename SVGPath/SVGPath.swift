@@ -21,6 +21,10 @@ public class SVGPath {
             case "m": switchBuilder(singlePointBuilder(.Move, false))
             case "L": switchBuilder(singlePointBuilder(.Line, true))
             case "l": switchBuilder(singlePointBuilder(.Line, false))
+            case "H": switchBuilder(singleDirectionBuilder(false, true))
+            case "h": switchBuilder(singleDirectionBuilder(false, false))
+            case "V": switchBuilder(singleDirectionBuilder(true, true))
+            case "v": switchBuilder(singleDirectionBuilder(true, false))
             default: numbers.append(char)
             }
         }
@@ -137,7 +141,40 @@ func singlePointBuilder (type: SVGCommand.Kind, absolute: Bool) -> SVGCommandBui
     return builder
 }
 
+func singleDirectionBuilder (vertical: Bool, absolute: Bool) -> SVGCommandBuilder {
+    func builder(numbers: [Float], last: SVGCommand?) -> [SVGCommand] {
+        var out: [SVGCommand] = []
+        var lastCommand = last
+        
+        for var i = 0; i < numbers.count; i++ {
+            var point:CGPoint = CGPoint()
+            
+            if let last = lastCommand {
+                point = last.point
+            }
 
+            if absolute {
+                if vertical {
+                    point.y = CGFloat(numbers[i])
+                } else {
+                    point.x = CGFloat(numbers[i])
+                }
+            } else {
+                if vertical {
+                    point.y += CGFloat(numbers[i])
+                } else {
+                    point.x += CGFloat(numbers[i])
+                }
+            }
+            
+            var command = SVGCommand(point, type: .Line)
+            out.append(command)
+            lastCommand = command
+        }
+        return out
+    }
+    return builder
+}
 
 
 
