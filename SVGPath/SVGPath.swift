@@ -60,7 +60,7 @@ public class SVGPath {
     
     private func finishLastCommand () {
         if let lastBuilder = builder {
-            commands += lastBuilder(numbers: SVGPath.parseNumbers(numbers), last: commands.last)
+            commands += lastBuilder(SVGPath.parseNumbers(numbers), commands.last)
         }
         numbers = ""
     }
@@ -150,40 +150,49 @@ public func == (lhs: SVGCommand, rhs: SVGCommand) -> Bool {
     return lhs.point == rhs.point && lhs.control1 == rhs.control1 && lhs.control2 == rhs.control2
 }
 
-typealias SVGCommandBuilder = (numbers: [Float], last: SVGCommand?) -> [SVGCommand]
+typealias SVGCommandBuilder = ([Float], SVGCommand?) -> [SVGCommand]
 
 func pointAtIndex (array: [Float], index: Int) -> CGPoint {
     return CGPoint(x: Double(array[index]), y: Double(array[index + 1]))
 }
 
-// MARK: MoveTo
+private func point (x:Float, y:Float) -> CGPoint {
+    return CGPoint(x: CGFloat(x), y: CGFloat(y))
+}
+
+private func take (numbers: [Float], stride: Int, last: SVGCommand?, coords:Coordinates, callback: (Slice<Float>, SVGCommand?) -> SVGCommand) -> [SVGCommand] {
+    var out: [SVGCommand] = []
+    var lastCommand:SVGCommand? = last
+
+    let count = (numbers.count / stride) * stride
+    
+    for var i = 0; i < count; i += stride {
+        let nums = numbers[i..<i + stride]
+        var command = callback(nums, lastCommand)
+        lastCommand = command.relativeTo(lastCommand, coords: coords)
+        out.append(lastCommand!)
+    }
+    
+    return out
+}
 
 private func vector (type: SVGCommand.Kind, coords: Coordinates) -> SVGCommandBuilder {
-    func builder(numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
-        var out: [SVGCommand] = []
-        var last = lastCommand
-        
-        let count = (numbers.count / 2) * 2
-        
-        for var i = 0; i < count; i += 2 {
-            var command = SVGCommand(pointAtIndex(numbers, i), type: type)
-            last = command.relativeTo(last, coords: coords)
-            out.append(command)
+    func build (numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
+        return take(numbers, 2, lastCommand, coords) {
+            (nums:Slice<Float>, last: SVGCommand?) -> SVGCommand in
+            return SVGCommand(point(nums[0], nums[1]), type: type)
         }
-
-        return out
     }
-    return builder
+    return build
 }
 
 private func scalar (direction: Direction, coords: Coordinates) -> SVGCommandBuilder {
-    func builder(numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
-        var out: [SVGCommand] = []
-        var last = lastCommand
-        
-        for var i = 0; i < numbers.count; i++ {
+    func build (numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
+        return take(numbers, 1, lastCommand, .Absolute) {
+            (nums:Slice<Float>, last: SVGCommand?) -> SVGCommand in
+
             var point:CGPoint = CGPoint()
-            let num = CGFloat(numbers[i])
+            let num = CGFloat(nums[0])
             
             if let lastPoint = last?.point {
                 point = lastPoint
@@ -203,28 +212,18 @@ private func scalar (direction: Direction, coords: Coordinates) -> SVGCommandBui
                 }
             }
             
-            last = SVGCommand(point, type: .Line)
-            out.append(last!)
+            return SVGCommand(point, type: .Line)
         }
-        return out
     }
-    return builder
+    return build
 }
 
 private func quad (continuation: Continuation, coords: Coordinates) -> SVGCommandBuilder {
-    func builder(numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
-        var out: [SVGCommand] = []
-        var last = lastCommand
-        
-        let step = continuation == .Smooth ? 2 : 4
-        let count = (numbers.count / step) * step
-        
-        for var i = 0; i < count; i += step {
-            var command = SVGCommand(pointAtIndex(numbers, i + 2), pointAtIndex(numbers, i), type: .QuadCurve)
-            last = command.relativeTo(last, coords: coords)
-            out.append(command)
+    func build (numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
+        return take(numbers, continuation == .Smooth ? 2 : 4, lastCommand, coords) {
+            (nums:Slice<Float>, last: SVGCommand?) -> SVGCommand in
+            return SVGCommand(point(nums[2], nums[3]), point(nums[0], nums[1]), type: .QuadCurve)
         }
-        return out
     }
-    return builder
+    return build
 }
