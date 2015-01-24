@@ -46,6 +46,7 @@ public class SVGPath {
             case "H": use(scalar(.Horizontal, .Absolute))
             case "h": use(scalar(.Horizontal, .Relative))
             case "Q": use(quad(.Broken, .Absolute))
+            case "q": use(quad(.Broken, .Relative))
             default: numbers.append(char)
             }
         }
@@ -130,6 +131,19 @@ public struct SVGCommand: Equatable {
         self.control2 = control
         self.type = type
     }
+    
+    private mutating func relativeTo (other:SVGCommand?, coords: Coordinates) -> SVGCommand {
+        if coords == .Absolute { return self }
+        if let otherPoint = other?.point {
+            point.x += otherPoint.x
+            point.y += otherPoint.y
+            control1.x += otherPoint.x
+            control1.y += otherPoint.y
+            control2.x += otherPoint.x
+            control2.y += otherPoint.y
+        }
+        return self
+    }
 }
 
 public func == (lhs: SVGCommand, rhs: SVGCommand) -> Bool {
@@ -145,60 +159,52 @@ func pointAtIndex (array: [Float], index: Int) -> CGPoint {
 // MARK: MoveTo
 
 private func vector (type: SVGCommand.Kind, coords: Coordinates) -> SVGCommandBuilder {
-    func builder(numbers: [Float], last: SVGCommand?) -> [SVGCommand] {
+    func builder(numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
         var out: [SVGCommand] = []
-        var lastCommand = last
+        var last = lastCommand
         
         let count = (numbers.count / 2) * 2
         
         for var i = 0; i < count; i += 2 {
-            var point = pointAtIndex(numbers, i)
-            
-            if coords == .Relative {
-                if let last = lastCommand {
-                    point.x += last.point.x
-                    point.y += last.point.y
-                }
-            }
-            
-            var command = SVGCommand(point, type: type)
+            var command = SVGCommand(pointAtIndex(numbers, i), type: type)
+            last = command.relativeTo(last, coords: coords)
             out.append(command)
-            lastCommand = command
         }
+
         return out
     }
     return builder
 }
 
 private func scalar (direction: Direction, coords: Coordinates) -> SVGCommandBuilder {
-    func builder(numbers: [Float], last: SVGCommand?) -> [SVGCommand] {
+    func builder(numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
         var out: [SVGCommand] = []
-        var lastCommand = last
+        var last = lastCommand
         
         for var i = 0; i < numbers.count; i++ {
             var point:CGPoint = CGPoint()
+            let num = CGFloat(numbers[i])
             
-            if let last = lastCommand {
-                point = last.point
+            if let lastPoint = last?.point {
+                point = lastPoint
             }
-
+            
             if coords == .Absolute {
                 if direction == .Vertical {
-                    point.y = CGFloat(numbers[i])
+                    point.y = num
                 } else {
-                    point.x = CGFloat(numbers[i])
+                    point.x = num
                 }
             } else {
                 if direction == .Vertical {
-                    point.y += CGFloat(numbers[i])
+                    point.y += num
                 } else {
-                    point.x += CGFloat(numbers[i])
+                    point.x += num
                 }
             }
             
-            var command = SVGCommand(point, type: .Line)
-            out.append(command)
-            lastCommand = command
+            last = SVGCommand(point, type: .Line)
+            out.append(last!)
         }
         return out
     }
@@ -206,36 +212,19 @@ private func scalar (direction: Direction, coords: Coordinates) -> SVGCommandBui
 }
 
 private func quad (continuation: Continuation, coords: Coordinates) -> SVGCommandBuilder {
-    func builder(numbers: [Float], last: SVGCommand?) -> [SVGCommand] {
+    func builder(numbers: [Float], lastCommand: SVGCommand?) -> [SVGCommand] {
         var out: [SVGCommand] = []
-        var lastCommand = last
+        var last = lastCommand
         
         let step = continuation == .Smooth ? 2 : 4
         let count = (numbers.count / step) * step
         
         for var i = 0; i < count; i += step {
-            var point = pointAtIndex(numbers, i)
-            var control = pointAtIndex(numbers, i + 2)
-            
-            if coords == .Relative {
-                if let last = lastCommand {
-                    point.x += last.point.x
-                    point.y += last.point.y
-                }
-            }
-            
-            var command = SVGCommand(point, control, type: .QuadCurve)
+            var command = SVGCommand(pointAtIndex(numbers, i + 2), pointAtIndex(numbers, i), type: .QuadCurve)
+            last = command.relativeTo(last, coords: coords)
             out.append(command)
-            lastCommand = command
         }
         return out
     }
     return builder
 }
-
-
-
-
-
-
-
