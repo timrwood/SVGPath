@@ -21,48 +21,46 @@ private enum Coordinates {
 
 public class SVGPath {
     public var commands: [SVGCommand] = []
-    private var builder: SVGCommandBuilder?
+    private var builder: SVGCommandBuilder = moveTo
     private var coords: Coordinates = .Absolute
+    private var stride: Int = 2
     private var numbers = ""
 
     public init (_ string: String) {
         for char in string {
             switch char {
-            case "M": use(.Absolute, moveTo)
-            case "m": use(.Relative, moveTo)
-            case "L": use(.Absolute, lineTo)
-            case "l": use(.Relative, lineTo)
-            case "V": use(.Absolute, lineToVertical)
-            case "v": use(.Relative, lineToVertical)
-            case "H": use(.Absolute, lineToHorizontal)
-            case "h": use(.Relative, lineToHorizontal)
-            case "Q": use(.Absolute, quadBroken)
-            case "q": use(.Relative, quadBroken)
-            case "T": use(.Absolute, quadSmooth)
-            case "t": use(.Relative, quadSmooth)
-            case "C": use(.Absolute, cubeBroken)
-            case "c": use(.Relative, cubeBroken)
-            case "S": use(.Absolute, cubeSmooth)
-            case "s": use(.Relative, cubeSmooth)
+            case "M": use(.Absolute, 2, moveTo)
+            case "m": use(.Relative, 2, moveTo)
+            case "L": use(.Absolute, 2, lineTo)
+            case "l": use(.Relative, 2, lineTo)
+            case "V": use(.Absolute, 1, lineToVertical)
+            case "v": use(.Relative, 1, lineToVertical)
+            case "H": use(.Absolute, 1, lineToHorizontal)
+            case "h": use(.Relative, 1, lineToHorizontal)
+            case "Q": use(.Absolute, 4, quadBroken)
+            case "q": use(.Relative, 4, quadBroken)
+            case "T": use(.Absolute, 2, quadSmooth)
+            case "t": use(.Relative, 2, quadSmooth)
+            case "C": use(.Absolute, 6, cubeBroken)
+            case "c": use(.Relative, 6, cubeBroken)
+            case "S": use(.Absolute, 4, cubeSmooth)
+            case "s": use(.Relative, 4, cubeSmooth)
             default: numbers.append(char)
             }
         }
         finishLastCommand()
     }
     
-    private func use (coords: Coordinates, _ builder: SVGCommandBuilder) {
+    private func use (coords: Coordinates, _ stride: Int, _ builder: SVGCommandBuilder) {
         finishLastCommand()
         self.builder = builder
         self.coords = coords
+        self.stride = stride
     }
     
     private func finishLastCommand () {
-        if let buildCommands = builder {
-            for command in buildCommands(SVGPath.parseNumbers(numbers), commands.last, coords) {
-                var c = command
-                c.relativeTo(commands.last, coords: coords)
-                commands.append(c)
-            }
+        for command in take(SVGPath.parseNumbers(numbers), stride, coords, commands.last, builder) {
+            commands.append(coords == .Relative ? command.relativeTo(commands.last) : command)
         }
         numbers = ""
     }
@@ -141,18 +139,15 @@ public struct SVGCommand {
         self.type = type
     }
     
-    private mutating func relativeTo (other:SVGCommand?, coords: Coordinates) -> SVGCommand {
-        if coords == .Absolute { return self }
+    private func relativeTo (other:SVGCommand?) -> SVGCommand {
         if let otherPoint = other?.point {
-            point = point + otherPoint
-            control1 = control1 + otherPoint
-            control2 = control2 + otherPoint
+            return SVGCommand(control1 + otherPoint, control2 + otherPoint, point + otherPoint, type: type)
         }
         return self
     }
 }
 
-private typealias SVGCommandBuilder = ([CGFloat], SVGCommand?, Coordinates) -> [SVGCommand]
+// MARK: CGPoint helpers
 
 private func +(a:CGPoint, b:CGPoint) -> CGPoint {
     return CGPoint(x: a.x + b.x, y: a.y + b.y)
@@ -162,7 +157,11 @@ private func -(a:CGPoint, b:CGPoint) -> CGPoint {
     return CGPoint(x: a.x - b.x, y: a.y - b.y)
 }
 
-private func take (numbers: [CGFloat], stride: Int, last: SVGCommand?, callback: (Slice<CGFloat>, SVGCommand?) -> SVGCommand) -> [SVGCommand] {
+// MARK: Command Builders
+
+private typealias SVGCommandBuilder = (Slice<CGFloat>, SVGCommand?, Coordinates) -> SVGCommand
+
+private func take (numbers: [CGFloat], stride: Int, coords: Coordinates, last: SVGCommand?, callback: SVGCommandBuilder) -> [SVGCommand] {
     var out: [SVGCommand] = []
     var lastCommand:SVGCommand? = last
 
@@ -170,7 +169,7 @@ private func take (numbers: [CGFloat], stride: Int, last: SVGCommand?, callback:
     
     for var i = 0; i < count; i += stride {
         let nums = numbers[i..<i + stride]
-        lastCommand = callback(nums, lastCommand)
+        lastCommand = callback(nums, lastCommand, coords)
         out.append(lastCommand!)
     }
     
@@ -179,87 +178,63 @@ private func take (numbers: [CGFloat], stride: Int, last: SVGCommand?, callback:
 
 // MARK: Mm - Move
 
-private func moveTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 2, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(nums[0], nums[1], type: .Move)
-    }
+private func moveTo (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], numbers[1], type: .Move)
 }
 
 // MARK: Ll - Line
 
-private func lineTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 2, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(nums[0], nums[1], type: .Line)
-    }
+private func lineTo (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], numbers[1], type: .Line)
 }
 
 // MARK: Vv - Vertical Line
 
-private func lineToVertical (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 1, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(coords == .Absolute ? last?.point.x ?? 0 : 0, nums[0], type: .Line)
-    }
+private func lineToVertical (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(coords == .Absolute ? last?.point.x ?? 0 : 0, numbers[0], type: .Line)
 }
 
 // MARK: Hh - Horizontal Line
 
-private func lineToHorizontal (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 1, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(nums[0], coords == .Absolute ? last?.point.y ?? 0 : 0, type: .Line)
-    }
+private func lineToHorizontal (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], coords == .Absolute ? last?.point.y ?? 0 : 0, type: .Line)
 }
 
 // MARK: Qq - Quadratic Curve To
 
-private func quadBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 4, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(nums[0], nums[1], nums[2], nums[3])
-    }
+private func quadBroken (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], numbers[1], numbers[2], numbers[3])
 }
 
 // MARK: Tt - Smooth Quadratic Curve To
 
-private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 2, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        let lastControl = last?.control1 ?? CGPoint()
-        let lastPoint = last?.point ?? CGPoint()
-        var control = lastPoint - lastControl
-        if coords == .Absolute {
-            control = control + lastPoint
-        }
-        return SVGCommand(control.x, control.y, nums[0], nums[1])
+private func quadSmooth (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    let lastControl = last?.control1 ?? CGPoint()
+    let lastPoint = last?.point ?? CGPoint()
+    var control = lastPoint - lastControl
+    if coords == .Absolute {
+        control = control + lastPoint
     }
+    return SVGCommand(control.x, control.y, numbers[0], numbers[1])
 }
 
 // MARK: Cc - Cubic Curve To
 
-private func cubeBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 6, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(nums[0], nums[1], nums[2], nums[3], nums[4], nums[5])
-    }
+private func cubeBroken (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5])
 }
 
 // MARK: Ss - Smooth Cubic Curve To
 
-private func cubeSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-    return take(numbers, 4, lastCommand) {
-        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        var lastControl = last?.control2 ?? CGPoint()
-        let lastPoint = last?.point ?? CGPoint()
-        if (last?.type ?? .Line) != .CubeCurve {
-            lastControl = lastPoint
-        }
-        var control = lastPoint - lastControl
-        if coords == .Absolute {
-            control = control + lastPoint
-        }
-        return SVGCommand(control.x, control.y, nums[0], nums[1], nums[2], nums[3])
+private func cubeSmooth (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    var lastControl = last?.control2 ?? CGPoint()
+    let lastPoint = last?.point ?? CGPoint()
+    if (last?.type ?? .Line) != .CubeCurve {
+        lastControl = lastPoint
     }
+    var control = lastPoint - lastControl
+    if coords == .Absolute {
+        control = control + lastPoint
+    }
+    return SVGCommand(control.x, control.y, numbers[0], numbers[1], numbers[2], numbers[3])
 }
