@@ -164,10 +164,6 @@ private func -(a:CGPoint, b:CGPoint) -> CGPoint {
     return CGPoint(x: a.x - b.x, y: a.y - b.y)
 }
 
-private func pointAtIndex (slice: Slice<CGFloat>, index: Int) -> CGPoint {
-    return CGPoint(x: slice[index], y: slice[index + 1])
-}
-
 private func take (numbers: [CGFloat], stride: Int, last: SVGCommand?, callback: (Slice<CGFloat>, SVGCommand?) -> SVGCommand) -> [SVGCommand] {
     var out: [SVGCommand] = []
     var lastCommand:SVGCommand? = last
@@ -188,7 +184,7 @@ private func take (numbers: [CGFloat], stride: Int, last: SVGCommand?, callback:
 private func moveTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 2, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(pointAtIndex(nums, 0), type: .Move)
+        return SVGCommand(nums[0], nums[1], type: .Move)
     }
 }
 
@@ -197,7 +193,7 @@ private func moveTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coord
 private func lineTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 2, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(pointAtIndex(nums, 0), type: .Line)
+        return SVGCommand(nums[0], nums[1], type: .Line)
     }
 }
 
@@ -206,13 +202,7 @@ private func lineTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coord
 private func lineToVertical (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 1, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        var point:CGPoint = CGPoint(x: 0, y: nums[0])
-        
-        if coords == .Absolute {
-            point.x = last?.point.x ?? 0
-        }
-        
-        return SVGCommand(point, type: .Line)
+        return SVGCommand(coords == .Absolute ? last?.point.x ?? 0 : 0, nums[0], type: .Line)
     }
 }
 
@@ -221,13 +211,7 @@ private func lineToVertical (numbers: [CGFloat], lastCommand: SVGCommand?, coord
 private func lineToHorizontal (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 1, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        var point:CGPoint = CGPoint(x: nums[0], y: 0)
-        
-        if coords == .Absolute {
-            point.y = last?.point.y ?? 0
-        }
-        
-        return SVGCommand(point, type: .Line)
+        return SVGCommand(nums[0], coords == .Absolute ? last?.point.y ?? 0 : 0, type: .Line)
     }
 }
 
@@ -236,8 +220,7 @@ private func lineToHorizontal (numbers: [CGFloat], lastCommand: SVGCommand?, coo
 private func quadBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 4, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        
-        return SVGCommand(pointAtIndex(nums, 0), pointAtIndex(nums, 2), type: .QuadCurve)
+        return SVGCommand(nums[0], nums[1], nums[2], nums[3], type: .QuadCurve)
     }
 }
 
@@ -252,7 +235,7 @@ private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
         if coords == .Absolute {
             control = control + lastPoint
         }
-        return SVGCommand(control, pointAtIndex(nums, 0), type: .QuadCurve)
+        return SVGCommand(control.x, control.y, nums[0], nums[1], type: .QuadCurve)
     }
 }
 
