@@ -58,4 +58,35 @@ class QuadCurveToTests: XCTestCase {
         
         assertCommandsEqual(actual, expect)
     }
+    
+    func testSingleAbsoluteSmoothCurveTo() {
+        let actual:[SVGCommand] = SVGPath("Q1 2 3 4T7 8").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 3.0, y: 4.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve),
+            SVGCommand(CGPoint(x: 7.0, y: 8.0), CGPoint(x: 5.0, y: 6.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    func testMultipleAbsoluteSmoothCurveTo() {
+        let actual:[SVGCommand] = SVGPath("Q1 2 3 4T1 2 3 4").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 3.0, y: 4.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve),
+            SVGCommand(CGPoint(x: 1.0, y: 2.0), CGPoint(x: 5.0, y: 6.0), type: .QuadCurve),
+            SVGCommand(CGPoint(x: 3.0, y: 4.0), CGPoint(x:-3.0, y:-2.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    func testSingleRelativeSmoothCurveTo() {
+        let actual:[SVGCommand] = SVGPath("Q1 2 3 4t7 8").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x:  3.0, y:  4.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve),
+            SVGCommand(CGPoint(x: 10.0, y: 12.0), CGPoint(x: 5.0, y: 6.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
 }

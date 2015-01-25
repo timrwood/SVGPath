@@ -31,9 +31,9 @@ private enum Continuation {
 
 public class SVGPath {
     public var commands: [SVGCommand] = []
-    var builder: SVGCommandBuilder?
+    private var builder: SVGCommandBuilder?
     private var coords: Coordinates = .Absolute
-    var numbers = ""
+    private var numbers = ""
 
     public init (_ string: String) {
         for char in string {
@@ -42,12 +42,14 @@ public class SVGPath {
             case "m": use(vector(.Move), .Relative)
             case "L": use(vector(.Line), .Absolute)
             case "l": use(vector(.Line), .Relative)
-            case "V": use(scalar(.Vertical, .Absolute), .Absolute)
-            case "v": use(scalar(.Vertical, .Relative), .Relative)
-            case "H": use(scalar(.Horizontal, .Absolute), .Absolute)
-            case "h": use(scalar(.Horizontal, .Relative), .Relative)
-            case "Q": use(quad(.Broken), .Absolute)
-            case "q": use(quad(.Broken), .Relative)
+            case "V": use(scalar(.Vertical), .Absolute)
+            case "v": use(scalar(.Vertical), .Relative)
+            case "H": use(scalar(.Horizontal), .Absolute)
+            case "h": use(scalar(.Horizontal), .Relative)
+            case "Q": use(quadBroken, .Absolute)
+            case "q": use(quadBroken, .Relative)
+            case "T": use(quadSmooth, .Absolute)
+            case "t": use(quadSmooth, .Relative)
             default: numbers.append(char)
             }
         }
@@ -61,8 +63,8 @@ public class SVGPath {
     }
     
     private func finishLastCommand () {
-        if let lastBuilder = builder {
-            for command in lastBuilder(SVGPath.parseNumbers(numbers), commands.last) {
+        if let buildCommands = builder {
+            for command in buildCommands(SVGPath.parseNumbers(numbers), commands.last, coords) {
                 var c = command
                 c.relativeTo(commands.last, coords: coords)
                 commands.append(c)
@@ -125,10 +127,7 @@ public struct SVGCommand {
     }
     
     public init (_ point: CGPoint, type: Kind) {
-        self.point = point
-        self.control1 = point
-        self.control2 = point
-        self.type = type
+        self.init(point, point, type: type)
     }
     
     public init (_ point: CGPoint, _ control: CGPoint, type: Kind) {
@@ -141,18 +140,23 @@ public struct SVGCommand {
     private mutating func relativeTo (other:SVGCommand?, coords: Coordinates) -> SVGCommand {
         if coords == .Absolute { return self }
         if let otherPoint = other?.point {
-            point.x += otherPoint.x
-            point.y += otherPoint.y
-            control1.x += otherPoint.x
-            control1.y += otherPoint.y
-            control2.x += otherPoint.x
-            control2.y += otherPoint.y
+            point = point + otherPoint
+            control1 = control1 + otherPoint
+            control2 = control2 + otherPoint
         }
         return self
     }
 }
 
-typealias SVGCommandBuilder = ([CGFloat], SVGCommand?) -> [SVGCommand]
+private typealias SVGCommandBuilder = ([CGFloat], SVGCommand?, Coordinates) -> [SVGCommand]
+
+private func +(a:CGPoint, b:CGPoint) -> CGPoint {
+    return CGPoint(x: a.x + b.x, y: a.y + b.y)
+}
+
+private func -(a:CGPoint, b:CGPoint) -> CGPoint {
+    return CGPoint(x: a.x - b.x, y: a.y - b.y)
+}
 
 func pointAtIndex (slice: Slice<CGFloat>, index: Int) -> CGPoint {
     return CGPoint(x: slice[index], y: slice[index + 1])
@@ -174,7 +178,7 @@ private func take (numbers: [CGFloat], stride: Int, last: SVGCommand?, callback:
 }
 
 private func vector (type: SVGCommand.Kind) -> SVGCommandBuilder {
-    func build (numbers: [CGFloat], lastCommand: SVGCommand?) -> [SVGCommand] {
+    func build (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
         return take(numbers, 2, lastCommand) {
             (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
             return SVGCommand(pointAtIndex(nums, 0), type: type)
@@ -183,8 +187,8 @@ private func vector (type: SVGCommand.Kind) -> SVGCommandBuilder {
     return build
 }
 
-private func scalar (direction: Direction, coords: Coordinates) -> SVGCommandBuilder {
-    func build (numbers: [CGFloat], lastCommand: SVGCommand?) -> [SVGCommand] {
+private func scalar (direction: Direction) -> SVGCommandBuilder {
+    func build (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
         return take(numbers, 1, lastCommand) {
             (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
 
@@ -206,13 +210,24 @@ private func scalar (direction: Direction, coords: Coordinates) -> SVGCommandBui
     return build
 }
 
-private func quad (continuation: Continuation) -> SVGCommandBuilder {
-    func build (numbers: [CGFloat], lastCommand: SVGCommand?) -> [SVGCommand] {
-        return take(numbers, continuation == .Smooth ? 2 : 4, lastCommand) {
-            (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-            
-            return SVGCommand(pointAtIndex(nums, 2), pointAtIndex(nums, 0), type: .QuadCurve)
-        }
+private func quadBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
+    return take(numbers, 4, lastCommand) {
+        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+        
+        return SVGCommand(pointAtIndex(nums, 2), pointAtIndex(nums, 0), type: .QuadCurve)
     }
-    return build
 }
+
+private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
+    return take(numbers, 2, lastCommand) {
+        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+        let lastControl = last?.control1 ?? CGPoint()
+        let lastPoint = last?.point ?? CGPoint()
+        var control = lastPoint - lastControl
+        if coords == .Absolute {
+            control = control + lastPoint
+        }
+        return SVGCommand(pointAtIndex(nums, 0), control, type: .QuadCurve)
+    }
+}
+
