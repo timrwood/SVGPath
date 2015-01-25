@@ -112,18 +112,34 @@ public struct SVGCommand {
     public enum Kind {
         case Move
         case Line
-        case Curve
+        case CubeCurve
         case QuadCurve
     }
     
-    public init (_ point: CGPoint, type: Kind) {
-        self.init(point, point, type: type)
+    public init (_ x: CGFloat, _ y: CGFloat, type: Kind) {
+        self.init(CGPoint(x: x, y: y), type: type)
     }
     
-    public init (_ point: CGPoint, _ control: CGPoint, type: Kind) {
+    public init (_ cx: CGFloat, _ cy: CGFloat, _ x: CGFloat, _ y: CGFloat, type: Kind) {
+        self.init(CGPoint(x: cx, y: cy), CGPoint(x: x, y: y), type: type)
+    }
+    
+    public init (_ cx1: CGFloat, _ cy1: CGFloat, _ cx2: CGFloat, _ cy2: CGFloat, _ x: CGFloat, _ y: CGFloat, type: Kind) {
+        self.init(CGPoint(x: cx1, y: cy1), CGPoint(x: cx2, y: cy2), CGPoint(x: x, y: y), type: type)
+    }
+    
+    public init (_ point: CGPoint, type: Kind) {
+        self.init(point, point, point, type: type)
+    }
+    
+    public init (_ control: CGPoint, _ point: CGPoint, type: Kind) {
+        self.init(control, control, point, type: type)
+    }
+    
+    public init (_ control1: CGPoint, _ control2: CGPoint, _ point: CGPoint, type: Kind) {
         self.point = point
-        self.control1 = control
-        self.control2 = control
+        self.control1 = control1
+        self.control2 = control2
         self.type = type
     }
     
@@ -221,7 +237,7 @@ private func quadBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
     return take(numbers, 4, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
         
-        return SVGCommand(pointAtIndex(nums, 2), pointAtIndex(nums, 0), type: .QuadCurve)
+        return SVGCommand(pointAtIndex(nums, 0), pointAtIndex(nums, 2), type: .QuadCurve)
     }
 }
 
@@ -236,7 +252,7 @@ private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
         if coords == .Absolute {
             control = control + lastPoint
         }
-        return SVGCommand(pointAtIndex(nums, 0), control, type: .QuadCurve)
+        return SVGCommand(control, pointAtIndex(nums, 0), type: .QuadCurve)
     }
 }
 

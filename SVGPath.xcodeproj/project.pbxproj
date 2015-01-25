@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		150489C11A758EE8005016DC /* CubeCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150489C01A758EE8005016DC /* CubeCurveToTests.swift */; };
+		150489C31A759557005016DC /* SVGCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150489C21A759557005016DC /* SVGCommandTests.swift */; };
 		154A9C4D1A73452C00EA2A6B /* QuadCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */; };
 		158403641A70B5E1002EE42F /* SVGPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 158403631A70B5E1002EE42F /* SVGPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1584036A1A70B5E1002EE42F /* SVGPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1584035E1A70B5E1002EE42F /* SVGPath.framework */; };
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		150489C01A758EE8005016DC /* CubeCurveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeCurveToTests.swift; sourceTree = "<group>"; };
+		150489C21A759557005016DC /* SVGCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGCommandTests.swift; sourceTree = "<group>"; };
 		154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadCurveToTests.swift; sourceTree = "<group>"; };
 		1584035E1A70B5E1002EE42F /* SVGPath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		158403621A70B5E1002EE42F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,12 +103,14 @@
 		1584036D1A70B5E2002EE42F /* SVGPathTests */ = {
 			isa = PBXGroup;
 			children = (
-				154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */,
+				150489C01A758EE8005016DC /* CubeCurveToTests.swift */,
 				15FB74DC1A722365009787C3 /* LineToTests.swift */,
 				1584037C1A715031002EE42F /* MoveToTests.swift */,
 				158403701A70B5E2002EE42F /* NumberParsingTests.swift */,
+				154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */,
 				15BB0A741A722A3F0033C83A /* TestHelpers.swift */,
 				1584036E1A70B5E2002EE42F /* Supporting Files */,
+				150489C21A759557005016DC /* SVGCommandTests.swift */,
 			);
 			path = SVGPathTests;
 			sourceTree = "<group>";
@@ -235,6 +241,8 @@
 				15BB0A751A722A3F0033C83A /* TestHelpers.swift in Sources */,
 				154A9C4D1A73452C00EA2A6B /* QuadCurveToTests.swift in Sources */,
 				158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */,
+				150489C31A759557005016DC /* SVGCommandTests.swift in Sources */,
+				150489C11A758EE8005016DC /* CubeCurveToTests.swift in Sources */,
 				1584037D1A715031002EE42F /* MoveToTests.swift in Sources */,
 				15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */,
 			);
