@@ -62,43 +62,43 @@ class CubeCurveToTests: XCTestCase {
         assertCommandsEqual(actual, expect)
     }
     
-//    func testSingleAbsoluteSmoothCurveTo() {
-//        let actual:[SVGCommand] = SVGPath("Q1 2 3 4T7 8").commands
-//        let expect:[SVGCommand] = [
-//            SVGCommand(1.0, 2.0, 3.0, 4.0, type: .QuadCurve),
-//            SVGCommand(5.0, 6.0, 7.0, 8.0, type: .QuadCurve)
-//        ]
-//        
-//        assertCommandsEqual(actual, expect)
-//    }
-//    
-//    func testMultipleAbsoluteSmoothCurveTo() {
-//        let actual:[SVGCommand] = SVGPath("Q1 2 3 4T1 2 3 4").commands
-//        let expect:[SVGCommand] = [
-//            SVGCommand( 1.0,  2.0, 3.0, 4.0, type: .QuadCurve),
-//            SVGCommand( 5.0,  6.0, 1.0, 2.0, type: .QuadCurve),
-//            SVGCommand(-3.0, -2.0, 3.0, 4.0, type: .QuadCurve)
-//        ]
-//        
-//        assertCommandsEqual(actual, expect)
-//    }
-//    
+    func testSingleAbsoluteSmoothCurveTo() {
+        let actual:[SVGCommand] = SVGPath("C1 2 3 4 5 6S7 8 9 10").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(1.0, 2.0, 3.0, 4.0, 5.0,  6.0, type: .CubeCurve),
+            SVGCommand(7.0, 8.0, 7.0, 8.0, 9.0, 10.0, type: .CubeCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    func testMultipleAbsoluteSmoothCurveTo() {
+        let actual:[SVGCommand] = SVGPath("C1 2 3 4 5 6S1 2 3 4 5 6 7 8").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, type: .CubeCurve),
+            SVGCommand(7.0, 8.0, 1.0, 2.0, 3.0, 4.0, type: .CubeCurve),
+            SVGCommand(5.0, 6.0, 5.0, 6.0, 7.0, 8.0, type: .CubeCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+//
 //    func testSingleRelativeSmoothCurveTo() {
-//        let actual:[SVGCommand] = SVGPath("Q1 2 3 4t7 8").commands
+//        let actual:[SVGCommand] = SVGPath("C1 2 3 4s7 8").commands
 //        let expect:[SVGCommand] = [
-//            SVGCommand(1.0, 2.0,  3.0,  4.0, type: .QuadCurve),
-//            SVGCommand(5.0, 6.0, 10.0, 12.0, type: .QuadCurve)
+//            SVGCommand(1.0, 2.0,  3.0,  4.0, type: .CubeCurve),
+//            SVGCommand(5.0, 6.0, 10.0, 12.0, type: .CubeCurve)
 //        ]
 //        
 //        assertCommandsEqual(actual, expect)
 //    }
 //    
 //    func testMultipleRelativeSmoothCurveTo() {
-//        let actual:[SVGCommand] = SVGPath("Q1 2 3 4t2 1 3 4").commands
+//        let actual:[SVGCommand] = SVGPath("C1 2 3 4s2 1 3 4").commands
 //        let expect:[SVGCommand] = [
-//            SVGCommand(1.0, 2.0, 3.0, 4.0, type: .QuadCurve),
-//            SVGCommand(5.0, 6.0, 5.0, 5.0, type: .QuadCurve),
-//            SVGCommand(5.0, 4.0, 8.0, 9.0, type: .QuadCurve)
+//            SVGCommand(1.0, 2.0, 3.0, 4.0, type: .CubeCurve),
+//            SVGCommand(5.0, 6.0, 5.0, 5.0, type: .CubeCurve),
+//            SVGCommand(5.0, 4.0, 8.0, 9.0, type: .CubeCurve)
 //        ]
 //        
 //        assertCommandsEqual(actual, expect)
