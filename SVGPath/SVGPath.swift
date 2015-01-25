@@ -257,8 +257,11 @@ private func cubeBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
 private func cubeSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 4, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        let lastControl = last?.control2 ?? CGPoint()
+        var lastControl = last?.control2 ?? CGPoint()
         let lastPoint = last?.point ?? CGPoint()
+        if (last?.type ?? .Line) != .CubeCurve {
+            lastControl = lastPoint
+        }
         var control = lastPoint - lastControl
         if coords == .Absolute {
             control = control + lastPoint
