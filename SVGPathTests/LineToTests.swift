@@ -13,7 +13,7 @@ class LineToTests: XCTestCase {
     func testSingleMoveTo() {
         let actual:[SVGCommand] = SVGPath("L1 2").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Line)
+            SVGCommand(1.0, 2.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -22,8 +22,8 @@ class LineToTests: XCTestCase {
     func testMultipleMoveToSameCommand() {
         let actual:[SVGCommand] = SVGPath("L1 2 3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Line),
-            SVGCommand(CGPoint(x: 3.0, y:4.0), type: .Line)
+            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(3.0, 4.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -32,8 +32,8 @@ class LineToTests: XCTestCase {
     func testMultipleMoveToNewCommands() {
         let actual:[SVGCommand] = SVGPath("L1 2L3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Line),
-            SVGCommand(CGPoint(x: 3.0, y:4.0), type: .Line)
+            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(3.0, 4.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -42,10 +42,10 @@ class LineToTests: XCTestCase {
     func testMultipleMoveToRelative() {
         let actual:[SVGCommand] = SVGPath("L1 2l1 2l5 6 1 1").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Line),
-            SVGCommand(CGPoint(x: 2.0, y:4.0), type: .Line),
-            SVGCommand(CGPoint(x: 7.0, y:10.0), type: .Line),
-            SVGCommand(CGPoint(x: 8.0, y:11.0), type: .Line)
+            SVGCommand(1.0,  2.0, type: .Line),
+            SVGCommand(2.0,  4.0, type: .Line),
+            SVGCommand(7.0, 10.0, type: .Line),
+            SVGCommand(8.0, 11.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -54,10 +54,10 @@ class LineToTests: XCTestCase {
     func testHorizontalLineToAbsolute () {
         let actual:[SVGCommand] = SVGPath("M1 2H4H-2 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Move),
-            SVGCommand(CGPoint(x: 4.0, y:2.0), type: .Line),
-            SVGCommand(CGPoint(x:-2.0, y:2.0), type: .Line),
-            SVGCommand(CGPoint(x: 6.0, y:2.0), type: .Line)
+            SVGCommand( 1.0, 2.0, type: .Move),
+            SVGCommand( 4.0, 2.0, type: .Line),
+            SVGCommand(-2.0, 2.0, type: .Line),
+            SVGCommand( 6.0, 2.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -66,10 +66,10 @@ class LineToTests: XCTestCase {
     func testHorizontalLineToRelative () {
         let actual:[SVGCommand] = SVGPath("M1 2h4h-2 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y:2.0), type: .Move),
-            SVGCommand(CGPoint(x: 5.0, y:2.0), type: .Line),
-            SVGCommand(CGPoint(x: 3.0, y:2.0), type: .Line),
-            SVGCommand(CGPoint(x: 9.0, y:2.0), type: .Line)
+            SVGCommand(1.0, 2.0, type: .Move),
+            SVGCommand(5.0, 2.0, type: .Line),
+            SVGCommand(3.0, 2.0, type: .Line),
+            SVGCommand(9.0, 2.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -78,10 +78,10 @@ class LineToTests: XCTestCase {
     func testVerticalLineToAbsolute () {
         let actual:[SVGCommand] = SVGPath("M1 2V4V-2 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y: 2.0), type: .Move),
-            SVGCommand(CGPoint(x: 1.0, y: 4.0), type: .Line),
-            SVGCommand(CGPoint(x: 1.0, y:-2.0), type: .Line),
-            SVGCommand(CGPoint(x: 1.0, y: 6.0), type: .Line)
+            SVGCommand(1.0,  2.0, type: .Move),
+            SVGCommand(1.0,  4.0, type: .Line),
+            SVGCommand(1.0, -2.0, type: .Line),
+            SVGCommand(1.0,  6.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -90,10 +90,10 @@ class LineToTests: XCTestCase {
     func testVerticalLineToRelative () {
         let actual:[SVGCommand] = SVGPath("M1 2v4v-2 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(CGPoint(x: 1.0, y: 2.0), type: .Move),
-            SVGCommand(CGPoint(x: 1.0, y: 6.0), type: .Line),
-            SVGCommand(CGPoint(x: 1.0, y: 4.0), type: .Line),
-            SVGCommand(CGPoint(x: 1.0, y:10.0), type: .Line)
+            SVGCommand(1.0,  2.0, type: .Move),
+            SVGCommand(1.0,  6.0, type: .Line),
+            SVGCommand(1.0,  4.0, type: .Line),
+            SVGCommand(1.0, 10.0, type: .Line)
         ]
         
         assertCommandsEqual(actual, expect)

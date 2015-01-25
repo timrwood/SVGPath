@@ -121,23 +121,17 @@ public struct SVGCommand {
     }
     
     public init (_ x: CGFloat, _ y: CGFloat, type: Kind) {
-        self.init(CGPoint(x: x, y: y), type: type)
-    }
-    
-    public init (_ cx: CGFloat, _ cy: CGFloat, _ x: CGFloat, _ y: CGFloat, type: Kind) {
-        self.init(CGPoint(x: cx, y: cy), CGPoint(x: x, y: y), type: type)
-    }
-    
-    public init (_ cx1: CGFloat, _ cy1: CGFloat, _ cx2: CGFloat, _ cy2: CGFloat, _ x: CGFloat, _ y: CGFloat, type: Kind) {
-        self.init(CGPoint(x: cx1, y: cy1), CGPoint(x: cx2, y: cy2), CGPoint(x: x, y: y), type: type)
-    }
-    
-    public init (_ point: CGPoint, type: Kind) {
+        let point = CGPoint(x: x, y: y)
         self.init(point, point, point, type: type)
     }
     
-    public init (_ control: CGPoint, _ point: CGPoint, type: Kind) {
-        self.init(control, control, point, type: type)
+    public init (_ cx: CGFloat, _ cy: CGFloat, _ x: CGFloat, _ y: CGFloat) {
+        let control = CGPoint(x: cx, y: cy)
+        self.init(control, control, CGPoint(x: x, y: y), type: .QuadCurve)
+    }
+    
+    public init (_ cx1: CGFloat, _ cy1: CGFloat, _ cx2: CGFloat, _ cy2: CGFloat, _ x: CGFloat, _ y: CGFloat) {
+        self.init(CGPoint(x: cx1, y: cy1), CGPoint(x: cx2, y: cy2), CGPoint(x: x, y: y), type: .CubeCurve)
     }
     
     public init (_ control1: CGPoint, _ control2: CGPoint, _ point: CGPoint, type: Kind) {
@@ -224,7 +218,7 @@ private func lineToHorizontal (numbers: [CGFloat], lastCommand: SVGCommand?, coo
 private func quadBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 4, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(nums[0], nums[1], nums[2], nums[3], type: .QuadCurve)
+        return SVGCommand(nums[0], nums[1], nums[2], nums[3])
     }
 }
 
@@ -239,7 +233,7 @@ private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
         if coords == .Absolute {
             control = control + lastPoint
         }
-        return SVGCommand(control.x, control.y, nums[0], nums[1], type: .QuadCurve)
+        return SVGCommand(control.x, control.y, nums[0], nums[1])
     }
 }
 
@@ -248,7 +242,7 @@ private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
 private func cubeBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 6, lastCommand) {
         (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-        return SVGCommand(nums[0], nums[1], nums[2], nums[3], nums[4], nums[5], type: .CubeCurve)
+        return SVGCommand(nums[0], nums[1], nums[2], nums[3], nums[4], nums[5])
     }
 }
 
@@ -266,6 +260,6 @@ private func cubeSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
         if coords == .Absolute {
             control = control + lastPoint
         }
-        return SVGCommand(control.x, control.y, nums[0], nums[1], nums[2], nums[3], type: .CubeCurve)
+        return SVGCommand(control.x, control.y, nums[0], nums[1], nums[2], nums[3])
     }
 }
