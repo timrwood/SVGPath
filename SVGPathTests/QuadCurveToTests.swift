@@ -89,4 +89,59 @@ class QuadCurveToTests: XCTestCase {
         
         assertCommandsEqual(actual, expect)
     }
+    
+    func testMultipleRelativeSmoothCurveTo() {
+        let actual:[SVGCommand] = SVGPath("Q1 2 3 4t2 1 3 4").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 3.0, y: 4.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve),
+            SVGCommand(CGPoint(x: 5.0, y: 5.0), CGPoint(x: 5.0, y: 6.0), type: .QuadCurve),
+            SVGCommand(CGPoint(x: 8.0, y: 9.0), CGPoint(x: 5.0, y: 4.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    func testAbsoluteSmoothToAfterMoveTo() {
+        let actual:[SVGCommand] = SVGPath("M1 2T3 4").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 1.0, y: 2.0), type: .Move),
+            SVGCommand(CGPoint(x: 3.0, y: 4.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    func testAbsoluteSmoothToAfterLineTo() {
+        let actual:[SVGCommand] = SVGPath("L1 2T3 4").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 1.0, y: 2.0), type: .Line),
+            SVGCommand(CGPoint(x: 3.0, y: 4.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    // TODO: func testAbsoluteSmoothToAfterCubicCurveTo() {}
+    
+    func testRelativeSmoothToAfterMoveTo() {
+        let actual:[SVGCommand] = SVGPath("M1 2t3 4").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 1.0, y: 2.0), type: .Move),
+            SVGCommand(CGPoint(x: 4.0, y: 6.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    func testRelativeSmoothToAfterLineTo() {
+        let actual:[SVGCommand] = SVGPath("L1 2t3 4").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(CGPoint(x: 1.0, y: 2.0), type: .Line),
+            SVGCommand(CGPoint(x: 4.0, y: 6.0), CGPoint(x: 1.0, y: 2.0), type: .QuadCurve)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
+    
+    // TODO: func testRelativeSmoothToAfterCubicCurveTo() {}
 }
