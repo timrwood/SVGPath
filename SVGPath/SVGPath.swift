@@ -209,8 +209,11 @@ private func quadBroken (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coo
 // MARK: Tt - Smooth Quadratic Curve To
 
 private func quadSmooth (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
-    let lastControl = last?.control1 ?? CGPoint()
+    var lastControl = last?.control1 ?? CGPoint()
     let lastPoint = last?.point ?? CGPoint()
+    if (last?.type ?? .Line) != .QuadCurve {
+        lastControl = lastPoint
+    }
     var control = lastPoint - lastControl
     if coords == .Absolute {
         control = control + lastPoint

@@ -108,9 +108,9 @@
 				1584037C1A715031002EE42F /* MoveToTests.swift */,
 				158403701A70B5E2002EE42F /* NumberParsingTests.swift */,
 				154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */,
+				150489C21A759557005016DC /* SVGCommandTests.swift */,
 				15BB0A741A722A3F0033C83A /* TestHelpers.swift */,
 				1584036E1A70B5E2002EE42F /* Supporting Files */,
-				150489C21A759557005016DC /* SVGCommandTests.swift */,
 			);
 			path = SVGPathTests;
 			sourceTree = "<group>";

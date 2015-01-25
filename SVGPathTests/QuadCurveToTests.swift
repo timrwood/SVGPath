@@ -121,7 +121,15 @@ class QuadCurveToTests: XCTestCase {
         assertCommandsEqual(actual, expect)
     }
     
-    // TODO: func testAbsoluteSmoothToAfterCubicCurveTo() {}
+    func testAbsoluteSmoothToAfterCubicCurveTo() {
+        let actual:[SVGCommand] = SVGPath("C1 2 3 4 5 6T7 8").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(1.0, 2.0, 3.0, 4.0, 5.0, 6.0),
+            SVGCommand(5.0, 6.0, 7.0, 8.0)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
     
     func testRelativeSmoothToAfterMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2t3 4").commands
@@ -143,5 +151,13 @@ class QuadCurveToTests: XCTestCase {
         assertCommandsEqual(actual, expect)
     }
     
-    // TODO: func testRelativeSmoothToAfterCubicCurveTo() {}
+    func testRelativeSmoothToAfterCubicCurveTo() {
+        let actual:[SVGCommand] = SVGPath("C1 2 3 4 5 6t7 8").commands
+        let expect:[SVGCommand] = [
+            SVGCommand(1.0, 2.0,  3.0,  4.0, 5.0, 6.0),
+            SVGCommand(5.0, 6.0, 12.0, 14.0)
+        ]
+        
+        assertCommandsEqual(actual, expect)
+    }
 }
