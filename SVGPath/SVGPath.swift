@@ -40,6 +40,8 @@ public class SVGPath {
             case "q": use(.Relative, quadBroken)
             case "T": use(.Absolute, quadSmooth)
             case "t": use(.Relative, quadSmooth)
+            case "C": use(.Absolute, cubeBroken)
+            case "c": use(.Relative, cubeBroken)
             default: numbers.append(char)
             }
         }
@@ -236,6 +238,15 @@ private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
             control = control + lastPoint
         }
         return SVGCommand(control.x, control.y, nums[0], nums[1], type: .QuadCurve)
+    }
+}
+
+// MARK: Cc - Cubic Curve To
+
+private func cubeBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
+    return take(numbers, 6, lastCommand) {
+        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+        return SVGCommand(nums[0], nums[1], nums[2], nums[3], nums[4], nums[5], type: .CubeCurve)
     }
 }
 
