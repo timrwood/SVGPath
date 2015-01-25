@@ -17,16 +17,6 @@ private enum Coordinates {
     case Relative
 }
 
-private enum Direction {
-    case Vertical
-    case Horizontal
-}
-
-private enum Continuation {
-    case Smooth
-    case Broken
-}
-
 // MARK: Class
 
 public class SVGPath {
@@ -38,25 +28,25 @@ public class SVGPath {
     public init (_ string: String) {
         for char in string {
             switch char {
-            case "M": use(vector(.Move), .Absolute)
-            case "m": use(vector(.Move), .Relative)
-            case "L": use(vector(.Line), .Absolute)
-            case "l": use(vector(.Line), .Relative)
-            case "V": use(scalar(.Vertical), .Absolute)
-            case "v": use(scalar(.Vertical), .Relative)
-            case "H": use(scalar(.Horizontal), .Absolute)
-            case "h": use(scalar(.Horizontal), .Relative)
-            case "Q": use(quadBroken, .Absolute)
-            case "q": use(quadBroken, .Relative)
-            case "T": use(quadSmooth, .Absolute)
-            case "t": use(quadSmooth, .Relative)
+            case "M": use(.Absolute, moveTo)
+            case "m": use(.Relative, moveTo)
+            case "L": use(.Absolute, lineTo)
+            case "l": use(.Relative, lineTo)
+            case "V": use(.Absolute, lineToVertical)
+            case "v": use(.Relative, lineToVertical)
+            case "H": use(.Absolute, lineToHorizontal)
+            case "h": use(.Relative, lineToHorizontal)
+            case "Q": use(.Absolute, quadBroken)
+            case "q": use(.Relative, quadBroken)
+            case "T": use(.Absolute, quadSmooth)
+            case "t": use(.Relative, quadSmooth)
             default: numbers.append(char)
             }
         }
         finishLastCommand()
     }
     
-    private func use (builder: SVGCommandBuilder, _ coords: Coordinates) {
+    private func use (coords: Coordinates, _ builder: SVGCommandBuilder) {
         finishLastCommand()
         self.builder = builder
         self.coords = coords
@@ -158,7 +148,7 @@ private func -(a:CGPoint, b:CGPoint) -> CGPoint {
     return CGPoint(x: a.x - b.x, y: a.y - b.y)
 }
 
-func pointAtIndex (slice: Slice<CGFloat>, index: Int) -> CGPoint {
+private func pointAtIndex (slice: Slice<CGFloat>, index: Int) -> CGPoint {
     return CGPoint(x: slice[index], y: slice[index + 1])
 }
 
@@ -177,38 +167,55 @@ private func take (numbers: [CGFloat], stride: Int, last: SVGCommand?, callback:
     return out
 }
 
-private func vector (type: SVGCommand.Kind) -> SVGCommandBuilder {
-    func build (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-        return take(numbers, 2, lastCommand) {
-            (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
-            return SVGCommand(pointAtIndex(nums, 0), type: type)
-        }
+// MARK: Mm - Move
+
+private func moveTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
+    return take(numbers, 2, lastCommand) {
+        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+        return SVGCommand(pointAtIndex(nums, 0), type: .Move)
     }
-    return build
 }
 
-private func scalar (direction: Direction) -> SVGCommandBuilder {
-    func build (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
-        return take(numbers, 1, lastCommand) {
-            (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+// MARK: Ll - Line
 
-            var point:CGPoint = CGPoint()
-            
-            if coords == .Absolute {
-                point = last?.point ?? point
-            }
-            
-            if direction == .Vertical {
-                point.y = nums[0]
-            } else {
-                point.x = nums[0]
-            }
-            
-            return SVGCommand(point, type: .Line)
-        }
+private func lineTo (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
+    return take(numbers, 2, lastCommand) {
+        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+        return SVGCommand(pointAtIndex(nums, 0), type: .Line)
     }
-    return build
 }
+
+// MARK: Vv - Vertical Line
+
+private func lineToVertical (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
+    return take(numbers, 1, lastCommand) {
+        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+        var point:CGPoint = CGPoint(x: 0, y: nums[0])
+        
+        if coords == .Absolute {
+            point.x = last?.point.x ?? 0
+        }
+        
+        return SVGCommand(point, type: .Line)
+    }
+}
+
+// MARK: Hh - Horizontal Line
+
+private func lineToHorizontal (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
+    return take(numbers, 1, lastCommand) {
+        (nums:Slice<CGFloat>, last: SVGCommand?) -> SVGCommand in
+        var point:CGPoint = CGPoint(x: nums[0], y: 0)
+        
+        if coords == .Absolute {
+            point.y = last?.point.y ?? 0
+        }
+        
+        return SVGCommand(point, type: .Line)
+    }
+}
+
+// MARK: Qq - Quadratic Curve To
 
 private func quadBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 4, lastCommand) {
@@ -217,6 +224,8 @@ private func quadBroken (numbers: [CGFloat], lastCommand: SVGCommand?, coords: C
         return SVGCommand(pointAtIndex(nums, 2), pointAtIndex(nums, 0), type: .QuadCurve)
     }
 }
+
+// MARK: Tt - Smooth Quadratic Curve To
 
 private func quadSmooth (numbers: [CGFloat], lastCommand: SVGCommand?, coords: Coordinates) -> [SVGCommand] {
     return take(numbers, 2, lastCommand) {
