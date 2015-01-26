@@ -9,6 +9,25 @@
 import Foundation
 import CoreGraphics
 
+// MARK: UIBezierPath
+
+public extension UIBezierPath {
+    convenience init (svgPath: String) {
+        self.init()
+        applyCommands(svgPath, self)
+    }
+}
+
+private func applyCommands (svgPath: String, path: UIBezierPath) {
+    for command in SVGPath(svgPath).commands {
+        switch command.type {
+        case .Move: path.moveToPoint(command.point)
+        case .Line: path.addLineToPoint(command.point)
+        case .QuadCurve: path.addQuadCurveToPoint(command.point, controlPoint: command.control1)
+        case .CubeCurve: path.addCurveToPoint(command.point, controlPoint1: command.control1, controlPoint2: command.control2)
+        }
+    }
+}
 
 // MARK: Enums
 
