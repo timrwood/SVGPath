@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.platform = :ios
 
-  s.source = { :git => "git@github.com:timrwood/SVGPath.git", :tag => "0.0.1" }
+  s.source = { :git => "https://github.com/timrwood/SVGPath.git", :tag => "0.0.1" }
 
   s.source_files = "SVGPath"
 
