@@ -65,6 +65,8 @@ public class SVGPath {
             case "c": use(.Relative, 6, cubeBroken)
             case "S": use(.Absolute, 4, cubeSmooth)
             case "s": use(.Relative, 4, cubeSmooth)
+            case "Z": use(.Absolute, 1, close)
+            case "z": use(.Absolute, 1, close)
             default: numbers.append(char)
             }
         }
@@ -266,4 +268,10 @@ private func cubeSmooth (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coo
         control = control + lastPoint
     }
     return SVGCommand(control.x, control.y, numbers[0], numbers[1], numbers[2], numbers[3])
+}
+
+// MARK: Zz - Close Path
+
+private func close (numbers: Slice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand()
 }

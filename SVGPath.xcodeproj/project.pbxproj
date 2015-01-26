@@ -18,6 +18,7 @@
 		1584037B1A70B688002EE42F /* SVGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037A1A70B688002EE42F /* SVGPath.swift */; };
 		1584037D1A715031002EE42F /* MoveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037C1A715031002EE42F /* MoveToTests.swift */; };
 		15BB0A751A722A3F0033C83A /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB0A741A722A3F0033C83A /* TestHelpers.swift */; };
+		15F683801A76A39600DCA4CB /* ClosePathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6837F1A76A39600DCA4CB /* ClosePathTests.swift */; };
 		15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FB74DC1A722365009787C3 /* LineToTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		1584037A1A70B688002EE42F /* SVGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGPath.swift; sourceTree = "<group>"; };
 		1584037C1A715031002EE42F /* MoveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTests.swift; sourceTree = "<group>"; };
 		15BB0A741A722A3F0033C83A /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		15F6837F1A76A39600DCA4CB /* ClosePathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClosePathTests.swift; sourceTree = "<group>"; };
 		15FB74DC1A722365009787C3 /* LineToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineToTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,7 @@
 		1584036D1A70B5E2002EE42F /* SVGPathTests */ = {
 			isa = PBXGroup;
 			children = (
+				15F6837F1A76A39600DCA4CB /* ClosePathTests.swift */,
 				150489C01A758EE8005016DC /* CubeCurveToTests.swift */,
 				15FB74DC1A722365009787C3 /* LineToTests.swift */,
 				1584037C1A715031002EE42F /* MoveToTests.swift */,
@@ -264,6 +267,7 @@
 				150489C11A758EE8005016DC /* CubeCurveToTests.swift in Sources */,
 				1584037D1A715031002EE42F /* MoveToTests.swift in Sources */,
 				15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */,
+				15F683801A76A39600DCA4CB /* ClosePathTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
