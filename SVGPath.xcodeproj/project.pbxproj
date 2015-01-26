@@ -10,6 +10,7 @@
 		150489C11A758EE8005016DC /* CubeCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150489C01A758EE8005016DC /* CubeCurveToTests.swift */; };
 		150489C31A759557005016DC /* SVGCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150489C21A759557005016DC /* SVGCommandTests.swift */; };
 		154A9C4D1A73452C00EA2A6B /* QuadCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */; };
+		157ABFC01A75EA7A006D12F9 /* SVGPath.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1584035E1A70B5E1002EE42F /* SVGPath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		158403641A70B5E1002EE42F /* SVGPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 158403631A70B5E1002EE42F /* SVGPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1584036A1A70B5E1002EE42F /* SVGPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1584035E1A70B5E1002EE42F /* SVGPath.framework */; };
 		158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158403701A70B5E2002EE42F /* NumberParsingTests.swift */; };
@@ -28,6 +29,19 @@
 			remoteInfo = SVGPath;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		157ABFBF1A75EA6A006D12F9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				157ABFC01A75EA7A006D12F9 /* SVGPath.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		150489C01A758EE8005016DC /* CubeCurveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeCurveToTests.swift; sourceTree = "<group>"; };
@@ -160,6 +174,7 @@
 			buildConfigurationList = 158403771A70B5E2002EE42F /* Build configuration list for PBXNativeTarget "SVGPathTests" */;
 			buildPhases = (
 				158403651A70B5E1002EE42F /* Sources */,
+				157ABFBF1A75EA6A006D12F9 /* CopyFiles */,
 				158403661A70B5E1002EE42F /* Frameworks */,
 				158403671A70B5E1002EE42F /* Resources */,
 			);
