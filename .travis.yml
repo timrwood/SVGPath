@@ -1,0 +1,6 @@
+language: objective-c
+before_script:
+    - brew update && brew upgrade xctool
+xcode_project: SVGPath.xcodeproj
+xcode_scheme: SVGPathTests
+xcode_sdk: iphonesimulator
