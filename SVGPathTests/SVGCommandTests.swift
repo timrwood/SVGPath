@@ -10,6 +10,13 @@ import XCTest
 import SVGPath
 
 class SVGCommandTests: XCTestCase {
+    func testCommandFromZeroNumbers() {
+        XCTAssertEqual(SVGCommand().point,    CGPoint(x: 0.0, y: 0.0), "use 0,0 for point")
+        XCTAssertEqual(SVGCommand().control1, CGPoint(x: 0.0, y: 0.0), "use 0,0 for control1")
+        XCTAssertEqual(SVGCommand().control2, CGPoint(x: 0.0, y: 0.0), "use 0,0 for control2")
+        XCTAssertEqual(SVGCommand().type,     SVGCommand.Kind.Close,   "use close type for 0 numbers")
+    }
+
     func testCommandFromTwoNumbers() {
         XCTAssertEqual(SVGCommand(1.0, 2.0, type: .Line).point,    CGPoint(x: 1.0, y: 2.0), "use 1st 2 of 2 numbers for point")
         XCTAssertEqual(SVGCommand(1.0, 2.0, type: .Line).control1, CGPoint(x: 1.0, y: 2.0), "use 1st 2 of 2 numbers for control1")

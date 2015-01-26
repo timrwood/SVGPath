@@ -25,6 +25,7 @@ private func applyCommands (svgPath: String, path: UIBezierPath) {
         case .Line: path.addLineToPoint(command.point)
         case .QuadCurve: path.addQuadCurveToPoint(command.point, controlPoint: command.control1)
         case .CubeCurve: path.addCurveToPoint(command.point, controlPoint1: command.control1, controlPoint2: command.control2)
+        case .Close: path.closePath()
         }
     }
 }
@@ -135,6 +136,12 @@ public struct SVGCommand {
         case Line
         case CubeCurve
         case QuadCurve
+        case Close
+    }
+    
+    public init () {
+        let point = CGPoint()
+        self.init(point, point, point, type: .Close)
     }
     
     public init (_ x: CGFloat, _ y: CGFloat, type: Kind) {
