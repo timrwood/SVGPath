@@ -1,4 +1,4 @@
-# SVGPath
+# SVGPath [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
 
 A Swift Library for parsing SVG path strings into UIBezierPaths
 
@@ -13,3 +13,9 @@ let svgPath = "M85.384 32.884C115.46 68.38 239.47 170.94 281.4 " +
 
 let path = UIBezierPath(svgPath: svgPath)
 ```
+
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
+
+[travis-url]: http://travis-ci.org/timrwood/SVGPath
+[travis-image]: http://img.shields.io/travis/timrwood/SVGPath/develop.svg?style=flat
