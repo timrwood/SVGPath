@@ -21,7 +21,7 @@ let path = UIBezierPath(svgPath: "M85 32C115 68 239 170 281 192 311 126 274 43 2
 [license-image]: https://img.shields.io/cocoapods/l/SVGPath.svg?style=flat
 [license-url]: https://github.com/timrwood/SVGPath/blob/master/LICENSE
 
-[travis-image]: http://img.shields.io/travis/timrwood/SVGPath/develop.svg?style=flat
+[travis-image]: http://img.shields.io/travis/timrwood/SVGPath.svg?style=flat
 [travis-url]: http://travis-ci.org/timrwood/SVGPath
 
 [cocoapods-image]: https://img.shields.io/cocoapods/v/SVGPath.svg?style=flat
