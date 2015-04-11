@@ -65,4 +65,11 @@ class NumberParsingTests: XCTestCase {
         
         XCTAssertEqual(actual, expect, "Should not split on the minus from an exponent")
     }
+    
+    func testNegativeNumbersFollowingSpaces() {
+        let actual:[CGFloat] = SVGPath.parseNumbers("-2.1 1 -1 2.1 -1 3.4")
+        let expect:[CGFloat] = [-2.1, 1, -1, 2.1, -1, 3.4]
+
+        XCTAssertEqual(actual, expect, "Should allow spaces before negative numbers")
+    }
 }
