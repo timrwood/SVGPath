@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SVGPath"
-  s.version = "0.0.2"
+  s.version = "0.0.3"
   s.summary = "A Swift Library for parsing SVG path strings into UIBezierPaths"
 
   s.homepage = "https://github.com/timrwood/SVGPath"
