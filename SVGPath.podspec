@@ -5,14 +5,14 @@ Pod::Spec.new do |s|
 
   s.homepage = "https://github.com/timrwood/SVGPath"
 
-  s.license = { :type => "MIT", :file => "LICENSE" }
+  s.license = { type: "MIT", file: "LICENSE" }
 
   s.author = { "Tim Wood" => "timwoodcreates@gmail.com" }
   s.social_media_url = "http://twitter.com/timtamiam"
 
-  s.platform = :ios
+  s.platform = :ios, "8.0"
 
-  s.source = { :git => "https://github.com/timrwood/SVGPath.git", :tag => "0.0.3" }
+  s.source = { git: "https://github.com/timrwood/SVGPath.git", tag: "0.0.3" }
 
   s.source_files = "SVGPath"
   s.requires_arc = true
