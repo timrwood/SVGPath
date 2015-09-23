@@ -189,16 +189,19 @@ private func -(a:CGPoint, b:CGPoint) -> CGPoint {
 
 // MARK: Command Builders
 
-private typealias SVGCommandBuilder = (ArraySlice<CGFloat>, SVGCommand?, Coordinates) -> SVGCommand
+private typealias SVGCommandBuilder = ([CGFloat], SVGCommand?, Coordinates) -> SVGCommand
 
 private func take (numbers: [CGFloat], stride: Int, coords: Coordinates, last: SVGCommand?, callback: SVGCommandBuilder) -> [SVGCommand] {
     var out: [SVGCommand] = []
     var lastCommand:SVGCommand? = last
 
     let count = (numbers.count / stride) * stride
+    var nums:[CGFloat] = [0, 0, 0, 0, 0, 0];
     
     for var i = 0; i < count; i += stride {
-        let nums = numbers[i..<i + stride]
+        for var j = 0; j < stride; j++ {
+            nums[j] = numbers[i + j]
+        }
         lastCommand = callback(nums, lastCommand, coords)
         out.append(lastCommand!)
     }
@@ -208,37 +211,37 @@ private func take (numbers: [CGFloat], stride: Int, coords: Coordinates, last: S
 
 // MARK: Mm - Move
 
-private func moveTo (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func moveTo (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(numbers[0], numbers[1], type: .Move)
 }
 
 // MARK: Ll - Line
 
-private func lineTo (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func lineTo (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(numbers[0], numbers[1], type: .Line)
 }
 
 // MARK: Vv - Vertical Line
 
-private func lineToVertical (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func lineToVertical (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(coords == .Absolute ? last?.point.x ?? 0 : 0, numbers[0], type: .Line)
 }
 
 // MARK: Hh - Horizontal Line
 
-private func lineToHorizontal (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func lineToHorizontal (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(numbers[0], coords == .Absolute ? last?.point.y ?? 0 : 0, type: .Line)
 }
 
 // MARK: Qq - Quadratic Curve To
 
-private func quadBroken (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func quadBroken (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(numbers[0], numbers[1], numbers[2], numbers[3])
 }
 
 // MARK: Tt - Smooth Quadratic Curve To
 
-private func quadSmooth (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func quadSmooth (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     var lastControl = last?.control1 ?? CGPoint()
     let lastPoint = last?.point ?? CGPoint()
     if (last?.type ?? .Line) != .QuadCurve {
@@ -253,13 +256,13 @@ private func quadSmooth (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords
 
 // MARK: Cc - Cubic Curve To
 
-private func cubeBroken (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func cubeBroken (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5])
 }
 
 // MARK: Ss - Smooth Cubic Curve To
 
-private func cubeSmooth (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func cubeSmooth (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     var lastControl = last?.control2 ?? CGPoint()
     let lastPoint = last?.point ?? CGPoint()
     if (last?.type ?? .Line) != .CubeCurve {
@@ -274,6 +277,6 @@ private func cubeSmooth (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords
 
 // MARK: Zz - Close Path
 
-private func close (numbers: ArraySlice<CGFloat>, last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func close (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand()
 }
