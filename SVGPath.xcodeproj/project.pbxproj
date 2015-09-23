@@ -64,13 +64,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1584035A1A70B5E1002EE42F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		158403661A70B5E1002EE42F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -162,9 +155,7 @@
 			buildConfigurationList = 158403741A70B5E2002EE42F /* Build configuration list for PBXNativeTarget "SVGPath" */;
 			buildPhases = (
 				158403591A70B5E1002EE42F /* Sources */,
-				1584035A1A70B5E1002EE42F /* Frameworks */,
 				1584035B1A70B5E1002EE42F /* Headers */,
-				1584035C1A70B5E1002EE42F /* Resources */,
 			);
 			buildRules = (
 			);
@@ -232,13 +223,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1584035C1A70B5E1002EE42F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		158403671A70B5E1002EE42F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
