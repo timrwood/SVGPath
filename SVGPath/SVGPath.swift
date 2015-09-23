@@ -14,7 +14,7 @@ import CoreGraphics
 public extension UIBezierPath {
     convenience init (svgPath: String) {
         self.init()
-        applyCommands(svgPath, self)
+        applyCommands(svgPath, path: self)
     }
 }
 
@@ -47,7 +47,7 @@ public class SVGPath {
     private var numbers = ""
 
     public init (_ string: String) {
-        for char in string {
+        for char in string.characters {
             switch char {
             case "M": use(.Absolute, 2, moveTo)
             case "m": use(.Relative, 2, moveTo)
@@ -81,7 +81,7 @@ public class SVGPath {
     }
     
     private func finishLastCommand () {
-        for command in take(SVGPath.parseNumbers(numbers), stride, coords, commands.last, builder) {
+        for command in take(SVGPath.parseNumbers(numbers), stride: stride, coords: coords, last: commands.last, callback: builder) {
             commands.append(coords == .Relative ? command.relativeTo(commands.last) : command)
         }
         numbers = ""
@@ -100,15 +100,15 @@ public extension SVGPath {
         var last = ""
         
         for char in numbers.unicodeScalars {
-            var next = String(char)
+            let next = String(char)
             if next == "-" && last != "" && last != "E" && last != "e" {
-                if count(curr.utf16) > 0 {
+                if curr.utf16.count > 0 {
                     all.append(curr)
                 }
                 curr = next
             } else if numberSet.longCharacterIsMember(char.value) {
                 curr += next
-            } else if count(curr.utf16) > 0 {
+            } else if curr.utf16.count > 0 {
                 all.append(curr)
                 curr = ""
             }

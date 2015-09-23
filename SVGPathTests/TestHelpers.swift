@@ -9,7 +9,7 @@
 import XCTest
 import SVGPath
 
-func assertCommandsEqual (a:[SVGCommand], b:[SVGCommand]) {
+func assertCommandsEqual (a:[SVGCommand], _ b:[SVGCommand]) {
     XCTAssertEqual(a.count, b.count, "counts should be the same")
     
     for var i = 0; i < a.count; i++ {
