@@ -25,4 +25,4 @@ let path = UIBezierPath(svgPath: "M85 32C115 68 239 170 281 192 311 126 274 43 2
 [travis-url]: http://travis-ci.org/timrwood/SVGPath
 
 [cocoapods-image]: https://img.shields.io/cocoapods/v/SVGPath.svg?style=flat
-[cocoapods-url]: http://cocoadocs.org/docsets/SVGPath/0.0.1
+[cocoapods-url]: http://cocoadocs.org/docsets/SVGPath
