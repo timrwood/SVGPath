@@ -91,7 +91,7 @@ public class SVGPath {
 // MARK: Numbers
 
 private let numberSet = NSCharacterSet(charactersInString: "-.0123456789eE")
-private let numberFormatter = NSNumberFormatter()
+private let numberFormatter = createNumberFormatter()
 
 public extension SVGPath {
     class func parseNumbers (numbers: String) -> [CGFloat] {
@@ -175,6 +175,14 @@ public struct SVGCommand {
         }
         return self
     }
+}
+
+// MARK: NSNumberFormatter helpers
+
+private func createNumberFormatter() -> NSNumberFormatter {
+    let numberFormatter = NSNumberFormatter()
+    numberFormatter.locale = NSLocale(localeIdentifier: "en_US")
+    return numberFormatter
 }
 
 // MARK: CGPoint helpers
