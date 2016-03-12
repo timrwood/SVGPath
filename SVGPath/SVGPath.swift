@@ -91,7 +91,8 @@ public class SVGPath {
 // MARK: Numbers
 
 private let numberSet = NSCharacterSet(charactersInString: "-.0123456789eE")
-private let numberFormatter = NSNumberFormatter()
+private let locale = NSLocale(localeIdentifier: "en_US")
+
 
 public extension SVGPath {
     class func parseNumbers (numbers: String) -> [CGFloat] {
@@ -117,13 +118,7 @@ public extension SVGPath {
         
         all.append(curr)
         
-        return all.map() {
-            (number: String) -> CGFloat in
-            if let num = numberFormatter.numberFromString(number)?.doubleValue {
-                return CGFloat(num)
-            }
-            return 0.0
-        }
+        return all.map { CGFloat(NSDecimalNumber(string: $0, locale: locale)) }
     }
 }
 
