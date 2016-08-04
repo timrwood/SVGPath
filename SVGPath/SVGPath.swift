@@ -93,7 +93,7 @@ public class SVGPath {
 // MARK: Numbers
 
 private let numberSet = CharacterSet(charactersIn: "-.0123456789eE")
-private let locale = Locale(localeIdentifier: "en_US")
+private let locale = Locale(identifier: "en_US")
 
 
 public extension SVGPath {
