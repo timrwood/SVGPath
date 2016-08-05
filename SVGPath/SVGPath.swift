@@ -83,7 +83,7 @@ public class SVGPath {
     }
     
     private func finishLastCommand () {
-        for command in take(SVGPath.parse(numbers), increment: increment, coords: coords, last: commands.last, callback: builder) {
+        for command in take(SVGPath.parseNumbers(numbers), increment: increment, coords: coords, last: commands.last, callback: builder) {
             commands.append(coords == .relative ? command.relative(to: commands.last) : command)
         }
         numbers = ""
@@ -97,7 +97,7 @@ private let locale = Locale(identifier: "en_US")
 
 
 public extension SVGPath {
-    class func parse (_ numbers: String) -> [CGFloat] {
+    class func parseNumbers (_ numbers: String) -> [CGFloat] {
         var all:[String] = []
         var curr = ""
         var last = ""
