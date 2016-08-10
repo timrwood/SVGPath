@@ -13,7 +13,7 @@ class ClosePathTests: XCTestCase {
     func testAbsoluteCloseAfterMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2Z").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
+            SVGCommand(1.0, 2.0, type: .move),
             SVGCommand()
         ]
         
@@ -23,7 +23,7 @@ class ClosePathTests: XCTestCase {
     func testRelativeCloseAfterMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2z").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
+            SVGCommand(1.0, 2.0, type: .move),
             SVGCommand()
         ]
         
@@ -33,7 +33,7 @@ class ClosePathTests: XCTestCase {
     func testAbsoluteCloseAfterLineTo() {
         let actual:[SVGCommand] = SVGPath("L1 2Z").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(1.0, 2.0, type: .line),
             SVGCommand()
         ]
         
@@ -43,7 +43,7 @@ class ClosePathTests: XCTestCase {
     func testRelativeCloseAfterLineTo() {
         let actual:[SVGCommand] = SVGPath("L1 2z").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(1.0, 2.0, type: .line),
             SVGCommand()
         ]
         
