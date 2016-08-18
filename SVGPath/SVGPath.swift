@@ -34,7 +34,7 @@ private extension UIBezierPath {
 
 // MARK: Enums
 
-private enum Coordinates {
+fileprivate enum Coordinates {
     case absolute
     case relative
 }
@@ -109,7 +109,7 @@ public extension SVGPath {
                     all.append(curr)
                 }
                 curr = next
-            } else if numberSet.contains(UnicodeScalar(char.value)) {
+            } else if numberSet.contains(UnicodeScalar(char.value)!) {
                 curr += next
             } else if curr.utf16.count > 0 {
                 all.append(curr)
@@ -166,7 +166,7 @@ public struct SVGCommand {
         self.type = type
     }
     
-    private func relative (to other:SVGCommand?) -> SVGCommand {
+    fileprivate func relative (to other:SVGCommand?) -> SVGCommand {
         if let otherPoint = other?.point {
             return SVGCommand(control1 + otherPoint, control2 + otherPoint, point + otherPoint, type: type)
         }
