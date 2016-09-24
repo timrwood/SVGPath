@@ -33,7 +33,7 @@ class QuadCurveToTests: XCTestCase {
     func testSingleRelativeCurveTo() {
         let actual:[SVGCommand] = SVGPath("M8 6q1 2 3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(8.0, 6.0, type: .Move),
+            SVGCommand(8.0, 6.0, type: .move),
             SVGCommand(9.0, 8.0, 11.0, 10.0)
         ]
         
@@ -44,7 +44,7 @@ class QuadCurveToTests: XCTestCase {
         let actual:[SVGCommand] = SVGPath("M1 2q3 4 5 6 7 8 9 10q1 2 3 4").commands
         let expect:[SVGCommand] = [
             SVGCommand(
-                1.0,                   2.0, type: .Move),
+                1.0,                   2.0, type: .move),
             SVGCommand(
                 1.0 + 3.0,             2.0 + 4.0,
                 1.0 + 5.0,             2.0 + 6.0),
@@ -104,7 +104,7 @@ class QuadCurveToTests: XCTestCase {
     func testAbsoluteSmoothToAfterMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2T3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
+            SVGCommand(1.0, 2.0, type: .move),
             SVGCommand(1.0, 2.0, 3.0, 4.0)
         ]
         
@@ -114,7 +114,7 @@ class QuadCurveToTests: XCTestCase {
     func testAbsoluteSmoothToAfterLineTo() {
         let actual:[SVGCommand] = SVGPath("L1 2T3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(1.0, 2.0, type: .line),
             SVGCommand(1.0, 2.0, 3.0, 4.0)
         ]
         
@@ -134,7 +134,7 @@ class QuadCurveToTests: XCTestCase {
     func testRelativeSmoothToAfterMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2t3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
+            SVGCommand(1.0, 2.0, type: .move),
             SVGCommand(1.0, 2.0, 4.0, 6.0)
         ]
         
@@ -144,7 +144,7 @@ class QuadCurveToTests: XCTestCase {
     func testRelativeSmoothToAfterLineTo() {
         let actual:[SVGCommand] = SVGPath("L1 2t3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(1.0, 2.0, type: .line),
             SVGCommand(1.0, 2.0, 4.0, 6.0)
         ]
         

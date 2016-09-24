@@ -13,7 +13,7 @@ class MoveToTests: XCTestCase {
     func testSingleMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move)
+            SVGCommand(1.0, 2.0, type: .move)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -22,8 +22,8 @@ class MoveToTests: XCTestCase {
     func testMultipleMoveToSameCommand() {
         let actual:[SVGCommand] = SVGPath("M1 2 3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
-            SVGCommand(3.0, 4.0, type: .Move)
+            SVGCommand(1.0, 2.0, type: .move),
+            SVGCommand(3.0, 4.0, type: .move)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -32,8 +32,8 @@ class MoveToTests: XCTestCase {
     func testMultipleMoveToNewCommands() {
         let actual:[SVGCommand] = SVGPath("M1 2M3 4").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
-            SVGCommand(3.0, 4.0, type: .Move)
+            SVGCommand(1.0, 2.0, type: .move),
+            SVGCommand(3.0, 4.0, type: .move)
         ]
         
         assertCommandsEqual(actual, expect)
@@ -42,10 +42,10 @@ class MoveToTests: XCTestCase {
     func testMultipleMoveToRelative() {
         let actual:[SVGCommand] = SVGPath("M1 2m1 2m5 6 1 1").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
-            SVGCommand(2.0, 4.0, type: .Move),
-            SVGCommand(7.0, 10.0, type: .Move),
-            SVGCommand(8.0, 11.0, type: .Move)
+            SVGCommand(1.0, 2.0, type: .move),
+            SVGCommand(2.0, 4.0, type: .move),
+            SVGCommand(7.0, 10.0, type: .move),
+            SVGCommand(8.0, 11.0, type: .move)
         ]
         
         assertCommandsEqual(actual, expect)
