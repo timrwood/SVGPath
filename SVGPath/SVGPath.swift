@@ -75,7 +75,7 @@ public class SVGPath {
         finishLastCommand()
     }
     
-    private func use (_ coords: Coordinates, _ increment: Int, _ builder: SVGCommandBuilder) {
+    private func use (_ coords: Coordinates, _ increment: Int, _ builder: @escaping SVGCommandBuilder) {
         finishLastCommand()
         self.builder = builder
         self.coords = coords
