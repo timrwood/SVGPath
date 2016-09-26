@@ -18,14 +18,14 @@ public extension UIBezierPath {
     }
 }
 
-private func applyCommands (svgPath: String, path: UIBezierPath) {
+private func applyCommands (_ svgPath: String, path: UIBezierPath) {
     for command in SVGPath(svgPath).commands {
         switch command.type {
-        case .Move: path.moveToPoint(command.point)
-        case .Line: path.addLineToPoint(command.point)
-        case .QuadCurve: path.addQuadCurveToPoint(command.point, controlPoint: command.control1)
-        case .CubeCurve: path.addCurveToPoint(command.point, controlPoint1: command.control1, controlPoint2: command.control2)
-        case .Close: path.closePath()
+        case .move: path.move(to: command.point)
+        case .line: path.addLine(to: command.point)
+        case .quadCurve: path.addQuadCurve(to: command.point, controlPoint: command.control1)
+        case .cubeCurve: path.addCurve(to: command.point, controlPoint1: command.control1, controlPoint2: command.control2)
+        case .close: path.close()
         }
     }
 }
@@ -33,56 +33,56 @@ private func applyCommands (svgPath: String, path: UIBezierPath) {
 // MARK: Enums
 
 private enum Coordinates {
-    case Absolute
-    case Relative
+    case absolute
+    case relative
 }
 
 // MARK: Class
 
-public class SVGPath {
-    public var commands: [SVGCommand] = []
-    private var builder: SVGCommandBuilder = moveTo
-    private var coords: Coordinates = .Absolute
-    private var stride: Int = 2
-    private var numbers = ""
+open class SVGPath {
+    open var commands: [SVGCommand] = []
+    fileprivate var builder: SVGCommandBuilder = moveTo
+    fileprivate var coords: Coordinates = .absolute
+    fileprivate var stride: Int = 2
+    fileprivate var numbers = ""
 
     public init (_ string: String) {
         for char in string.characters {
             switch char {
-            case "M": use(.Absolute, 2, moveTo)
-            case "m": use(.Relative, 2, moveTo)
-            case "L": use(.Absolute, 2, lineTo)
-            case "l": use(.Relative, 2, lineTo)
-            case "V": use(.Absolute, 1, lineToVertical)
-            case "v": use(.Relative, 1, lineToVertical)
-            case "H": use(.Absolute, 1, lineToHorizontal)
-            case "h": use(.Relative, 1, lineToHorizontal)
-            case "Q": use(.Absolute, 4, quadBroken)
-            case "q": use(.Relative, 4, quadBroken)
-            case "T": use(.Absolute, 2, quadSmooth)
-            case "t": use(.Relative, 2, quadSmooth)
-            case "C": use(.Absolute, 6, cubeBroken)
-            case "c": use(.Relative, 6, cubeBroken)
-            case "S": use(.Absolute, 4, cubeSmooth)
-            case "s": use(.Relative, 4, cubeSmooth)
-            case "Z": use(.Absolute, 1, close)
-            case "z": use(.Absolute, 1, close)
+            case "M": use(.absolute, 2, moveTo)
+            case "m": use(.relative, 2, moveTo)
+            case "L": use(.absolute, 2, lineTo)
+            case "l": use(.relative, 2, lineTo)
+            case "V": use(.absolute, 1, lineToVertical)
+            case "v": use(.relative, 1, lineToVertical)
+            case "H": use(.absolute, 1, lineToHorizontal)
+            case "h": use(.relative, 1, lineToHorizontal)
+            case "Q": use(.absolute, 4, quadBroken)
+            case "q": use(.relative, 4, quadBroken)
+            case "T": use(.absolute, 2, quadSmooth)
+            case "t": use(.relative, 2, quadSmooth)
+            case "C": use(.absolute, 6, cubeBroken)
+            case "c": use(.relative, 6, cubeBroken)
+            case "S": use(.absolute, 4, cubeSmooth)
+            case "s": use(.relative, 4, cubeSmooth)
+            case "Z": use(.absolute, 1, close)
+            case "z": use(.absolute, 1, close)
             default: numbers.append(char)
             }
         }
         finishLastCommand()
     }
-    
-    private func use (coords: Coordinates, _ stride: Int, _ builder: SVGCommandBuilder) {
+
+    fileprivate func use (_ coords: Coordinates, _ stride: Int, _ builder: @escaping SVGCommandBuilder) {
         finishLastCommand()
         self.builder = builder
         self.coords = coords
         self.stride = stride
     }
     
-    private func finishLastCommand () {
-        for command in take(SVGPath.parseNumbers(numbers), stride: stride, coords: coords, last: commands.last, callback: builder) {
-            commands.append(coords == .Relative ? command.relativeTo(commands.last) : command)
+    fileprivate func finishLastCommand () {
+        for command in take(SVGPath.parseNumbers(numbers), strideAmount: stride, coords: coords, last: commands.last, callback: builder) {
+            commands.append(coords == .relative ? command.relativeTo(commands.last) : command)
         }
         numbers = ""
     }
@@ -90,12 +90,12 @@ public class SVGPath {
 
 // MARK: Numbers
 
-private let numberSet = NSCharacterSet(charactersInString: "-.0123456789eE")
-private let locale = NSLocale(localeIdentifier: "en_US")
+private let numberSet = CharacterSet(charactersIn: "-.0123456789eE")
+private let locale = Locale(identifier: "en_US")
 
 
 public extension SVGPath {
-    class func parseNumbers (numbers: String) -> [CGFloat] {
+    class func parseNumbers (_ numbers: String) -> [CGFloat] {
         var all:[String] = []
         var curr = ""
         var last = ""
@@ -107,7 +107,7 @@ public extension SVGPath {
                     all.append(curr)
                 }
                 curr = next
-            } else if numberSet.longCharacterIsMember(char.value) {
+            } else if numberSet.contains(UnicodeScalar(char.value)!) {
                 curr += next
             } else if curr.utf16.count > 0 {
                 all.append(curr)
@@ -131,16 +131,16 @@ public struct SVGCommand {
     public var type:Kind
     
     public enum Kind {
-        case Move
-        case Line
-        case CubeCurve
-        case QuadCurve
-        case Close
+        case move
+        case line
+        case cubeCurve
+        case quadCurve
+        case close
     }
     
     public init () {
         let point = CGPoint()
-        self.init(point, point, point, type: .Close)
+        self.init(point, point, point, type: .close)
     }
     
     public init (_ x: CGFloat, _ y: CGFloat, type: Kind) {
@@ -150,11 +150,11 @@ public struct SVGCommand {
     
     public init (_ cx: CGFloat, _ cy: CGFloat, _ x: CGFloat, _ y: CGFloat) {
         let control = CGPoint(x: cx, y: cy)
-        self.init(control, control, CGPoint(x: x, y: y), type: .QuadCurve)
+        self.init(control, control, CGPoint(x: x, y: y), type: .quadCurve)
     }
     
     public init (_ cx1: CGFloat, _ cy1: CGFloat, _ cx2: CGFloat, _ cy2: CGFloat, _ x: CGFloat, _ y: CGFloat) {
-        self.init(CGPoint(x: cx1, y: cy1), CGPoint(x: cx2, y: cy2), CGPoint(x: x, y: y), type: .CubeCurve)
+        self.init(CGPoint(x: cx1, y: cy1), CGPoint(x: cx2, y: cy2), CGPoint(x: x, y: y), type: .cubeCurve)
     }
     
     public init (_ control1: CGPoint, _ control2: CGPoint, _ point: CGPoint, type: Kind) {
@@ -164,7 +164,7 @@ public struct SVGCommand {
         self.type = type
     }
     
-    private func relativeTo (other:SVGCommand?) -> SVGCommand {
+    fileprivate func relativeTo (_ other:SVGCommand?) -> SVGCommand {
         if let otherPoint = other?.point {
             return SVGCommand(control1 + otherPoint, control2 + otherPoint, point + otherPoint, type: type)
         }
@@ -186,15 +186,15 @@ private func -(a:CGPoint, b:CGPoint) -> CGPoint {
 
 private typealias SVGCommandBuilder = ([CGFloat], SVGCommand?, Coordinates) -> SVGCommand
 
-private func take (numbers: [CGFloat], stride: Int, coords: Coordinates, last: SVGCommand?, callback: SVGCommandBuilder) -> [SVGCommand] {
+private func take (_ numbers: [CGFloat], strideAmount: Int, coords: Coordinates, last: SVGCommand?, callback: SVGCommandBuilder) -> [SVGCommand] {
     var out: [SVGCommand] = []
     var lastCommand:SVGCommand? = last
 
-    let count = (numbers.count / stride) * stride
+    let count = (numbers.count / strideAmount) * strideAmount
     var nums:[CGFloat] = [0, 0, 0, 0, 0, 0];
-    
-    for var i = 0; i < count; i += stride {
-        for var j = 0; j < stride; j++ {
+
+    for i in stride(from: 0, to: count, by: strideAmount) {
+        for j in 0 ..< strideAmount {
             nums[j] = numbers[i + j]
         }
         lastCommand = callback(nums, lastCommand, coords)
@@ -206,44 +206,44 @@ private func take (numbers: [CGFloat], stride: Int, coords: Coordinates, last: S
 
 // MARK: Mm - Move
 
-private func moveTo (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
-    return SVGCommand(numbers[0], numbers[1], type: .Move)
+private func moveTo (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], numbers[1], type: .move)
 }
 
 // MARK: Ll - Line
 
-private func lineTo (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
-    return SVGCommand(numbers[0], numbers[1], type: .Line)
+private func lineTo (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], numbers[1], type: .line)
 }
 
 // MARK: Vv - Vertical Line
 
-private func lineToVertical (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
-    return SVGCommand(coords == .Absolute ? last?.point.x ?? 0 : 0, numbers[0], type: .Line)
+private func lineToVertical (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(coords == .absolute ? last?.point.x ?? 0 : 0, numbers[0], type: .line)
 }
 
 // MARK: Hh - Horizontal Line
 
-private func lineToHorizontal (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
-    return SVGCommand(numbers[0], coords == .Absolute ? last?.point.y ?? 0 : 0, type: .Line)
+private func lineToHorizontal (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+    return SVGCommand(numbers[0], coords == .absolute ? last?.point.y ?? 0 : 0, type: .line)
 }
 
 // MARK: Qq - Quadratic Curve To
 
-private func quadBroken (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func quadBroken (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(numbers[0], numbers[1], numbers[2], numbers[3])
 }
 
 // MARK: Tt - Smooth Quadratic Curve To
 
-private func quadSmooth (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func quadSmooth (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     var lastControl = last?.control1 ?? CGPoint()
     let lastPoint = last?.point ?? CGPoint()
-    if (last?.type ?? .Line) != .QuadCurve {
+    if (last?.type ?? .line) != .quadCurve {
         lastControl = lastPoint
     }
     var control = lastPoint - lastControl
-    if coords == .Absolute {
+    if coords == .absolute {
         control = control + lastPoint
     }
     return SVGCommand(control.x, control.y, numbers[0], numbers[1])
@@ -251,20 +251,20 @@ private func quadSmooth (numbers: [CGFloat], last: SVGCommand?, coords: Coordina
 
 // MARK: Cc - Cubic Curve To
 
-private func cubeBroken (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func cubeBroken (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5])
 }
 
 // MARK: Ss - Smooth Cubic Curve To
 
-private func cubeSmooth (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func cubeSmooth (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     var lastControl = last?.control2 ?? CGPoint()
     let lastPoint = last?.point ?? CGPoint()
-    if (last?.type ?? .Line) != .CubeCurve {
+    if (last?.type ?? .line) != .cubeCurve {
         lastControl = lastPoint
     }
     var control = lastPoint - lastControl
-    if coords == .Absolute {
+    if coords == .absolute {
         control = control + lastPoint
     }
     return SVGCommand(control.x, control.y, numbers[0], numbers[1], numbers[2], numbers[3])
@@ -272,6 +272,6 @@ private func cubeSmooth (numbers: [CGFloat], last: SVGCommand?, coords: Coordina
 
 // MARK: Zz - Close Path
 
-private func close (numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
+private func close (_ numbers: [CGFloat], last: SVGCommand?, coords: Coordinates) -> SVGCommand {
     return SVGCommand()
 }

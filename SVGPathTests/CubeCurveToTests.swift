@@ -33,7 +33,7 @@ class CubeCurveToTests: XCTestCase {
     func testSingleRelativeCurveTo() {
         let actual:[SVGCommand] = SVGPath("M8 6c1 2 3 4 5 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(8.0, 6.0, type: .Move),
+            SVGCommand(8.0, 6.0, type: .move),
             SVGCommand(9.0, 8.0, 11.0, 10.0, 13.0, 12.0)
         ]
         
@@ -44,7 +44,7 @@ class CubeCurveToTests: XCTestCase {
         let actual:[SVGCommand] = SVGPath("M1 2c3 4 5 6 7 8 9 10 11 12 13 14c1 2 3 4 5 6").commands
         let expect:[SVGCommand] = [
             SVGCommand(
-                1.0,                   2.0, type: .Move),
+                1.0,                   2.0, type: .move),
             SVGCommand(
                 1.0 + 3.0,             2.0 + 4.0,
                 1.0 + 5.0,             2.0 + 6.0,
@@ -107,7 +107,7 @@ class CubeCurveToTests: XCTestCase {
     func testAbsoluteSmoothToAfterMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2S3 4 5 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
+            SVGCommand(1.0, 2.0, type: .move),
             SVGCommand(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
         ]
         
@@ -117,7 +117,7 @@ class CubeCurveToTests: XCTestCase {
     func testAbsoluteSmoothToAfterLineTo() {
         let actual:[SVGCommand] = SVGPath("L1 2S3 4 5 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(1.0, 2.0, type: .line),
             SVGCommand(1.0, 2.0, 3.0, 4.0, 5.0, 6.0)
         ]
         
@@ -137,7 +137,7 @@ class CubeCurveToTests: XCTestCase {
     func testRelativeSmoothToAfterMoveTo() {
         let actual:[SVGCommand] = SVGPath("M1 2s3 4 5 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Move),
+            SVGCommand(1.0, 2.0, type: .move),
             SVGCommand(1.0, 2.0, 4.0, 6.0, 6.0, 8.0)
         ]
         
@@ -147,7 +147,7 @@ class CubeCurveToTests: XCTestCase {
     func testRelativeSmoothToAfterLineTo() {
         let actual:[SVGCommand] = SVGPath("L1 2s3 4 5 6").commands
         let expect:[SVGCommand] = [
-            SVGCommand(1.0, 2.0, type: .Line),
+            SVGCommand(1.0, 2.0, type: .line),
             SVGCommand(1.0, 2.0, 4.0, 6.0, 6.0, 8.0)
         ]
         
