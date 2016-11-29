@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SVGPath"
-  s.version = "0.1.1"
+  s.version = "1.0.0"
   s.summary = "A Swift Library for parsing SVG path strings into UIBezierPaths"
 
   s.homepage = "https://github.com/timrwood/SVGPath"
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.platform = :ios, "8.0"
 
-  s.source = { git: "https://github.com/timrwood/SVGPath.git", tag: "0.1.1" }
+  s.source = { git: "https://github.com/timrwood/SVGPath.git", tag: "1.0.0" }
 
   s.source_files = "SVGPath"
   s.requires_arc = true
