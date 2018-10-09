@@ -49,7 +49,7 @@ public class SVGPath {
     private var numbers = ""
 
     public init (_ string: String) {
-        for char in string.characters {
+        for char in string {
             switch char {
             case "M": use(.absolute, 2, move)
             case "m": use(.relative, 2, move)
@@ -120,7 +120,7 @@ public extension SVGPath {
         
         all.append(curr)
         
-        return all.map { CGFloat(NSDecimalNumber(string: $0, locale: locale)) }
+        return all.map { CGFloat(truncating: NSDecimalNumber(string: $0, locale: locale)) }
     }
 }
 
