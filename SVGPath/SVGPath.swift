@@ -12,20 +12,24 @@ import CoreGraphics
 // MARK: UIBezierPath
 
 public extension UIBezierPath {
-    convenience init (svgPath: String) {
+    convenience init (svgPath: String, offset: CGFloat = 0) {
         self.init()
-        applyCommands(from: SVGPath(svgPath))
+        applyCommands(from: SVGPath(svgPath), offset: offset)
     }
 }
 
 private extension UIBezierPath {
-    func applyCommands(from svgPath: SVGPath) {
+    func applyCommands(from svgPath: SVGPath, offset: CGFloat) {
         for command in svgPath.commands {
+            let point = CGPoint(x: command.point.x - offset, y: command.point.y - offset)
+            let controlPoint1 = CGPoint(x: command.control1.x - offset, y: command.control1.y - offset)
+            let controlPoint2 = CGPoint(x: command.control2.x - offset, y: command.control2.y - offset)
+            
             switch command.type {
-            case .move: move(to: command.point)
-            case .line: addLine(to: command.point)
-            case .quadCurve: addQuadCurve(to: command.point, controlPoint: command.control1)
-            case .cubeCurve: addCurve(to: command.point, controlPoint1: command.control1, controlPoint2: command.control2)
+            case .move: move(to: point)
+            case .line: addLine(to: point)
+            case .quadCurve: addQuadCurve(to: point, controlPoint: controlPoint1)
+            case .cubeCurve: addCurve(to: point, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
             case .close: close()
             }
         }
