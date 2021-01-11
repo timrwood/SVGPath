@@ -6,10 +6,10 @@ import PackageDescription
 let package = Package(
     name: "SVGPath",
     platforms: [
-        .iOS(.v9),
+        .iOS(.v13),
         .macOS(.v10_15),
-        .tvOS(.v14),
-        .watchOS(.v7)
+        .tvOS(.v13),
+        .watchOS(.v6)
     ],
     products: [
         .library(
