@@ -6,156 +6,162 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		"SVGPath::SVGPathPackageTests::ProductTarget" /* SVGPathPackageTests */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = OBJ_41 /* Build configuration list for PBXAggregateTarget "SVGPathPackageTests" */;
+			buildPhases = (
+			);
+			dependencies = (
+				OBJ_44 /* PBXTargetDependency */,
+			);
+			name = SVGPathPackageTests;
+			productName = SVGPathPackageTests;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		150489C11A758EE8005016DC /* CubeCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150489C01A758EE8005016DC /* CubeCurveToTests.swift */; };
-		150489C31A759557005016DC /* SVGCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150489C21A759557005016DC /* SVGCommandTests.swift */; };
-		154A9C4D1A73452C00EA2A6B /* QuadCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */; };
-		157ABFC01A75EA7A006D12F9 /* SVGPath.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1584035E1A70B5E1002EE42F /* SVGPath.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		157ABFC21A75EB64006D12F9 /* UIBezierPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157ABFC11A75EB64006D12F9 /* UIBezierPathTests.swift */; };
-		158403641A70B5E1002EE42F /* SVGPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 158403631A70B5E1002EE42F /* SVGPath.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1584036A1A70B5E1002EE42F /* SVGPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1584035E1A70B5E1002EE42F /* SVGPath.framework */; };
-		158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158403701A70B5E2002EE42F /* NumberParsingTests.swift */; };
-		1584037B1A70B688002EE42F /* SVGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037A1A70B688002EE42F /* SVGPath.swift */; };
-		1584037D1A715031002EE42F /* MoveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1584037C1A715031002EE42F /* MoveToTests.swift */; };
-		15BB0A751A722A3F0033C83A /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB0A741A722A3F0033C83A /* TestHelpers.swift */; };
-		15F683801A76A39600DCA4CB /* ClosePathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6837F1A76A39600DCA4CB /* ClosePathTests.swift */; };
-		15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FB74DC1A722365009787C3 /* LineToTests.swift */; };
+		OBJ_32 /* SVGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* SVGPath.swift */; };
+		OBJ_39 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
+		OBJ_50 /* ClosePathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* ClosePathTests.swift */; };
+		OBJ_51 /* CubeCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* CubeCurveToTests.swift */; };
+		OBJ_52 /* LineToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* LineToTests.swift */; };
+		OBJ_53 /* MoveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* MoveToTests.swift */; };
+		OBJ_54 /* NumberParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* NumberParsingTests.swift */; };
+		OBJ_55 /* QuadCurveToTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* QuadCurveToTests.swift */; };
+		OBJ_56 /* SVGCommandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* SVGCommandTests.swift */; };
+		OBJ_57 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* TestHelpers.swift */; };
+		OBJ_58 /* UIBezierPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* UIBezierPathTests.swift */; };
+		OBJ_60 /* SVGPath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SVGPath::SVGPath::Product" /* SVGPath.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1584036B1A70B5E1002EE42F /* PBXContainerItemProxy */ = {
+		15C2659D25ACA4D7007E92FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 158403551A70B5E1002EE42F /* Project object */;
+			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 1584035D1A70B5E1002EE42F;
+			remoteGlobalIDString = "SVGPath::SVGPath";
 			remoteInfo = SVGPath;
+		};
+		15C265A025ACA4D8007E92FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = "SVGPath::SVGPathTests";
+			remoteInfo = SVGPathTests;
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		157ABFBF1A75EA6A006D12F9 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				157ABFC01A75EA7A006D12F9 /* SVGPath.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		150489C01A758EE8005016DC /* CubeCurveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubeCurveToTests.swift; sourceTree = "<group>"; };
-		150489C21A759557005016DC /* SVGCommandTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGCommandTests.swift; sourceTree = "<group>"; };
-		154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuadCurveToTests.swift; sourceTree = "<group>"; };
-		157ABFC11A75EB64006D12F9 /* UIBezierPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBezierPathTests.swift; sourceTree = "<group>"; };
-		1584035E1A70B5E1002EE42F /* SVGPath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGPath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		158403621A70B5E1002EE42F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		158403631A70B5E1002EE42F /* SVGPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGPath.h; sourceTree = "<group>"; };
-		158403691A70B5E1002EE42F /* SVGPathTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SVGPathTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1584036F1A70B5E2002EE42F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		158403701A70B5E2002EE42F /* NumberParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberParsingTests.swift; sourceTree = "<group>"; };
-		1584037A1A70B688002EE42F /* SVGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGPath.swift; sourceTree = "<group>"; };
-		1584037C1A715031002EE42F /* MoveToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToTests.swift; sourceTree = "<group>"; };
-		15BB0A741A722A3F0033C83A /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
-		15F6837F1A76A39600DCA4CB /* ClosePathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClosePathTests.swift; sourceTree = "<group>"; };
-		15FB74DC1A722365009787C3 /* LineToTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineToTests.swift; sourceTree = "<group>"; };
+		OBJ_12 /* ClosePathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosePathTests.swift; sourceTree = "<group>"; };
+		OBJ_13 /* CubeCurveToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeCurveToTests.swift; sourceTree = "<group>"; };
+		OBJ_14 /* LineToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineToTests.swift; sourceTree = "<group>"; };
+		OBJ_15 /* MoveToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToTests.swift; sourceTree = "<group>"; };
+		OBJ_16 /* NumberParsingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberParsingTests.swift; sourceTree = "<group>"; };
+		OBJ_17 /* QuadCurveToTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadCurveToTests.swift; sourceTree = "<group>"; };
+		OBJ_18 /* SVGCommandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGCommandTests.swift; sourceTree = "<group>"; };
+		OBJ_19 /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		OBJ_20 /* UIBezierPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathTests.swift; sourceTree = "<group>"; };
+		OBJ_25 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		OBJ_26 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		OBJ_9 /* SVGPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGPath.swift; sourceTree = "<group>"; };
+		"SVGPath::SVGPath::Product" /* SVGPath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SVGPath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"SVGPath::SVGPathTests::Product" /* SVGPathTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = SVGPathTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		158403661A70B5E1002EE42F /* Frameworks */ = {
+		OBJ_33 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 0;
 			files = (
-				1584036A1A70B5E1002EE42F /* SVGPath.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_60 /* SVGPath.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		158403541A70B5E1002EE42F = {
+		OBJ_10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				158403601A70B5E1002EE42F /* SVGPath */,
-				1584036D1A70B5E2002EE42F /* SVGPathTests */,
-				1584035F1A70B5E1002EE42F /* Products */,
+				OBJ_11 /* SVGPathTests */,
 			);
-			sourceTree = "<group>";
+			name = Tests;
+			sourceTree = SOURCE_ROOT;
 		};
-		1584035F1A70B5E1002EE42F /* Products */ = {
+		OBJ_11 /* SVGPathTests */ = {
 			isa = PBXGroup;
 			children = (
-				1584035E1A70B5E1002EE42F /* SVGPath.framework */,
-				158403691A70B5E1002EE42F /* SVGPathTests.xctest */,
+				OBJ_12 /* ClosePathTests.swift */,
+				OBJ_13 /* CubeCurveToTests.swift */,
+				OBJ_14 /* LineToTests.swift */,
+				OBJ_15 /* MoveToTests.swift */,
+				OBJ_16 /* NumberParsingTests.swift */,
+				OBJ_17 /* QuadCurveToTests.swift */,
+				OBJ_18 /* SVGCommandTests.swift */,
+				OBJ_19 /* TestHelpers.swift */,
+				OBJ_20 /* UIBezierPathTests.swift */,
+			);
+			name = SVGPathTests;
+			path = Tests/SVGPathTests;
+			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_21 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				"SVGPath::SVGPathTests::Product" /* SVGPathTests.xctest */,
+				"SVGPath::SVGPath::Product" /* SVGPath.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		158403601A70B5E1002EE42F /* SVGPath */ = {
+		OBJ_5 /*  */ = {
 			isa = PBXGroup;
 			children = (
-				158403631A70B5E1002EE42F /* SVGPath.h */,
-				1584037A1A70B688002EE42F /* SVGPath.swift */,
-				158403611A70B5E1002EE42F /* Supporting Files */,
+				OBJ_6 /* Package.swift */,
+				OBJ_7 /* Sources */,
+				OBJ_10 /* Tests */,
+				OBJ_21 /* Products */,
+				OBJ_25 /* LICENSE */,
+				OBJ_26 /* README.md */,
 			);
-			path = SVGPath;
+			name = "";
 			sourceTree = "<group>";
 		};
-		158403611A70B5E1002EE42F /* Supporting Files */ = {
+		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				158403621A70B5E1002EE42F /* Info.plist */,
+				OBJ_8 /* SVGPath */,
 			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
+			name = Sources;
+			sourceTree = SOURCE_ROOT;
 		};
-		1584036D1A70B5E2002EE42F /* SVGPathTests */ = {
+		OBJ_8 /* SVGPath */ = {
 			isa = PBXGroup;
 			children = (
-				15F6837F1A76A39600DCA4CB /* ClosePathTests.swift */,
-				150489C01A758EE8005016DC /* CubeCurveToTests.swift */,
-				15FB74DC1A722365009787C3 /* LineToTests.swift */,
-				1584037C1A715031002EE42F /* MoveToTests.swift */,
-				158403701A70B5E2002EE42F /* NumberParsingTests.swift */,
-				154A9C4C1A73452C00EA2A6B /* QuadCurveToTests.swift */,
-				150489C21A759557005016DC /* SVGCommandTests.swift */,
-				15BB0A741A722A3F0033C83A /* TestHelpers.swift */,
-				157ABFC11A75EB64006D12F9 /* UIBezierPathTests.swift */,
-				1584036E1A70B5E2002EE42F /* Supporting Files */,
+				OBJ_9 /* SVGPath.swift */,
 			);
-			path = SVGPathTests;
-			sourceTree = "<group>";
-		};
-		1584036E1A70B5E2002EE42F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1584036F1A70B5E2002EE42F /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
+			name = SVGPath;
+			path = Sources/SVGPath;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		1584035B1A70B5E1002EE42F /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				158403641A70B5E1002EE42F /* SVGPath.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		1584035D1A70B5E1002EE42F /* SVGPath */ = {
+		"SVGPath::SVGPath" /* SVGPath */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 158403741A70B5E2002EE42F /* Build configuration list for PBXNativeTarget "SVGPath" */;
+			buildConfigurationList = OBJ_28 /* Build configuration list for PBXNativeTarget "SVGPath" */;
 			buildPhases = (
-				158403591A70B5E1002EE42F /* Sources */,
-				1584035B1A70B5E1002EE42F /* Headers */,
+				OBJ_31 /* Sources */,
+				OBJ_33 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,307 +169,354 @@
 			);
 			name = SVGPath;
 			productName = SVGPath;
-			productReference = 1584035E1A70B5E1002EE42F /* SVGPath.framework */;
+			productReference = "SVGPath::SVGPath::Product" /* SVGPath.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		158403681A70B5E1002EE42F /* SVGPathTests */ = {
+		"SVGPath::SVGPathTests" /* SVGPathTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 158403771A70B5E2002EE42F /* Build configuration list for PBXNativeTarget "SVGPathTests" */;
+			buildConfigurationList = OBJ_46 /* Build configuration list for PBXNativeTarget "SVGPathTests" */;
 			buildPhases = (
-				158403651A70B5E1002EE42F /* Sources */,
-				157ABFBF1A75EA6A006D12F9 /* CopyFiles */,
-				158403661A70B5E1002EE42F /* Frameworks */,
-				158403671A70B5E1002EE42F /* Resources */,
+				OBJ_49 /* Sources */,
+				OBJ_59 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				1584036C1A70B5E1002EE42F /* PBXTargetDependency */,
+				OBJ_61 /* PBXTargetDependency */,
 			);
 			name = SVGPathTests;
 			productName = SVGPathTests;
-			productReference = 158403691A70B5E1002EE42F /* SVGPathTests.xctest */;
+			productReference = "SVGPath::SVGPathTests::Product" /* SVGPathTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		"SVGPath::SwiftPMPackageDescription" /* SVGPathPackageDescription */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = OBJ_35 /* Build configuration list for PBXNativeTarget "SVGPathPackageDescription" */;
+			buildPhases = (
+				OBJ_38 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SVGPathPackageDescription;
+			productName = SVGPathPackageDescription;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		158403551A70B5E1002EE42F /* Project object */ = {
+		OBJ_1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0810;
-				ORGANIZATIONNAME = "Tim Wood";
-				TargetAttributes = {
-					1584035D1A70B5E1002EE42F = {
-						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0800;
-					};
-					158403681A70B5E1002EE42F = {
-						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0800;
-					};
-				};
+				LastSwiftMigration = 9999;
+				LastUpgradeCheck = 9999;
 			};
-			buildConfigurationList = 158403581A70B5E1002EE42F /* Build configuration list for PBXProject "SVGPath" */;
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "SVGPath" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 158403541A70B5E1002EE42F;
-			productRefGroup = 1584035F1A70B5E1002EE42F /* Products */;
+			mainGroup = OBJ_5 /*  */;
+			productRefGroup = OBJ_21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1584035D1A70B5E1002EE42F /* SVGPath */,
-				158403681A70B5E1002EE42F /* SVGPathTests */,
+				"SVGPath::SVGPath" /* SVGPath */,
+				"SVGPath::SwiftPMPackageDescription" /* SVGPathPackageDescription */,
+				"SVGPath::SVGPathPackageTests::ProductTarget" /* SVGPathPackageTests */,
+				"SVGPath::SVGPathTests" /* SVGPathTests */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		158403671A70B5E1002EE42F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		158403591A70B5E1002EE42F /* Sources */ = {
+		OBJ_31 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 0;
 			files = (
-				1584037B1A70B688002EE42F /* SVGPath.swift in Sources */,
+				OBJ_32 /* SVGPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		158403651A70B5E1002EE42F /* Sources */ = {
+		OBJ_38 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 0;
 			files = (
-				15BB0A751A722A3F0033C83A /* TestHelpers.swift in Sources */,
-				157ABFC21A75EB64006D12F9 /* UIBezierPathTests.swift in Sources */,
-				154A9C4D1A73452C00EA2A6B /* QuadCurveToTests.swift in Sources */,
-				158403711A70B5E2002EE42F /* NumberParsingTests.swift in Sources */,
-				150489C31A759557005016DC /* SVGCommandTests.swift in Sources */,
-				150489C11A758EE8005016DC /* CubeCurveToTests.swift in Sources */,
-				1584037D1A715031002EE42F /* MoveToTests.swift in Sources */,
-				15FB74DD1A722365009787C3 /* LineToTests.swift in Sources */,
-				15F683801A76A39600DCA4CB /* ClosePathTests.swift in Sources */,
+				OBJ_39 /* Package.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		OBJ_49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 0;
+			files = (
+				OBJ_50 /* ClosePathTests.swift in Sources */,
+				OBJ_51 /* CubeCurveToTests.swift in Sources */,
+				OBJ_52 /* LineToTests.swift in Sources */,
+				OBJ_53 /* MoveToTests.swift in Sources */,
+				OBJ_54 /* NumberParsingTests.swift in Sources */,
+				OBJ_55 /* QuadCurveToTests.swift in Sources */,
+				OBJ_56 /* SVGCommandTests.swift in Sources */,
+				OBJ_57 /* TestHelpers.swift in Sources */,
+				OBJ_58 /* UIBezierPathTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1584036C1A70B5E1002EE42F /* PBXTargetDependency */ = {
+		OBJ_44 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1584035D1A70B5E1002EE42F /* SVGPath */;
-			targetProxy = 1584036B1A70B5E1002EE42F /* PBXContainerItemProxy */;
+			target = "SVGPath::SVGPathTests" /* SVGPathTests */;
+			targetProxy = 15C265A025ACA4D8007E92FC /* PBXContainerItemProxy */;
+		};
+		OBJ_61 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = "SVGPath::SVGPath" /* SVGPath */;
+			targetProxy = 15C2659D25ACA4D7007E92FC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		158403721A70B5E2002EE42F /* Debug */ = {
+		OBJ_29 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = SVGPath.xcodeproj/SVGPath_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = SVGPath;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = SVGPath;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		OBJ_3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+					"DEBUG=1",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				METAL_ENABLE_DEBUG_INFO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
+				USE_HEADERMAP = NO;
 			};
 			name = Debug;
 		};
-		158403731A70B5E2002EE42F /* Release */ = {
+		OBJ_30 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				METAL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		158403751A70B5E2002EE42F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SVGPath/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.svgpath.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		158403761A70B5E2002EE42F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SVGPath/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.svgpath.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		158403781A70B5E2002EE42F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
-				INFOPLIST_FILE = SVGPathTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = SVGPath.xcodeproj/SVGPath_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) $(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = SVGPath;
+				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = SVGPath;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		OBJ_36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -package-description-version 5.3.0";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
-		158403791A70B5E2002EE42F /* Release */ = {
+		OBJ_37 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = SVGPathTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				METAL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				LD = /usr/bin/true;
+				OTHER_SWIFT_FLAGS = "-swift-version 5 -I $(TOOLCHAIN_DIR)/usr/lib/swift/pm/4_2 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk -package-description-version 5.3.0";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		OBJ_4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SWIFT_PACKAGE=1",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_SWIFT_FLAGS = "$(inherited) -DXcode";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) SWIFT_PACKAGE";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				USE_HEADERMAP = NO;
+			};
+			name = Release;
+		};
+		OBJ_42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		OBJ_43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		OBJ_47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = SVGPath.xcodeproj/SVGPathTests_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = SVGPathTests;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		OBJ_48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = SVGPath.xcodeproj/SVGPathTests_Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGET_NAME = SVGPathTests;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		158403581A70B5E1002EE42F /* Build configuration list for PBXProject "SVGPath" */ = {
+		OBJ_2 /* Build configuration list for PBXProject "SVGPath" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				158403721A70B5E2002EE42F /* Debug */,
-				158403731A70B5E2002EE42F /* Release */,
+				OBJ_3 /* Debug */,
+				OBJ_4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		158403741A70B5E2002EE42F /* Build configuration list for PBXNativeTarget "SVGPath" */ = {
+		OBJ_28 /* Build configuration list for PBXNativeTarget "SVGPath" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				158403751A70B5E2002EE42F /* Debug */,
-				158403761A70B5E2002EE42F /* Release */,
+				OBJ_29 /* Debug */,
+				OBJ_30 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		158403771A70B5E2002EE42F /* Build configuration list for PBXNativeTarget "SVGPathTests" */ = {
+		OBJ_35 /* Build configuration list for PBXNativeTarget "SVGPathPackageDescription" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				158403781A70B5E2002EE42F /* Debug */,
-				158403791A70B5E2002EE42F /* Release */,
+				OBJ_36 /* Debug */,
+				OBJ_37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_41 /* Build configuration list for PBXAggregateTarget "SVGPathPackageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_42 /* Debug */,
+				OBJ_43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		OBJ_46 /* Build configuration list for PBXNativeTarget "SVGPathTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				OBJ_47 /* Debug */,
+				OBJ_48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 158403551A70B5E1002EE42F /* Project object */;
+	rootObject = OBJ_1 /* Project object */;
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "9999"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1584035D1A70B5E1002EE42F"
+               BlueprintIdentifier = "SVGPath::SVGPath"
                BuildableName = "SVGPath.framework"
                BlueprintName = "SVGPath"
-               ReferencedContainer = "container:SVGPath.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "158403681A70B5E1002EE42F"
-               BuildableName = "SVGPathTests.xctest"
-               BlueprintName = "SVGPathTests"
                ReferencedContainer = "container:SVGPath.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,24 +32,13 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "158403681A70B5E1002EE42F"
+               BlueprintIdentifier = "SVGPath::SVGPathTests"
                BuildableName = "SVGPathTests.xctest"
                BlueprintName = "SVGPathTests"
                ReferencedContainer = "container:SVGPath.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1584035D1A70B5E1002EE42F"
-            BuildableName = "SVGPath.framework"
-            BlueprintName = "SVGPath"
-            ReferencedContainer = "container:SVGPath.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -75,17 +50,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1584035D1A70B5E1002EE42F"
-            BuildableName = "SVGPath.framework"
-            BlueprintName = "SVGPath"
-            ReferencedContainer = "container:SVGPath.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -93,15 +57,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1584035D1A70B5E1002EE42F"
-            BuildableName = "SVGPath.framework"
-            BlueprintName = "SVGPath"
-            ReferencedContainer = "container:SVGPath.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
