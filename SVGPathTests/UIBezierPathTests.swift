@@ -113,4 +113,19 @@ class UIBezierPathTests: XCTestCase {
         XCTAssert(!path.contains(CGPoint(x: 4.99, y: 6.01)), "square should not contain 4.99, 6.01")
         XCTAssert(!path.contains(CGPoint(x: 4.01, y: 6.01)), "square should not contain 4.01, 6.01")
     }
+    
+    func testOffset() {
+        // CubeCurve with an offset of 2.0
+        let path = UIBezierPath(svgPath: "M2 4C4 4 4 6 2 6Z", offset: 2)
+        
+        // 4 corners
+        XCTAssert( path.contains(CGPoint(x: 0.01, y: 2.01)), "curve should contain 0.01, 2.01")
+        XCTAssert(!path.contains(CGPoint(x: 1.99, y: 2.01)), "curve should not contain 1.99, 2.01")
+        XCTAssert(!path.contains(CGPoint(x: 1.99, y: 3.99)), "curve should not contain 1.99, 3.99")
+        XCTAssert( path.contains(CGPoint(x: 0.01, y: 3.99)), "curve should contain 0.01, 3.99")
+        
+        // either side of the halfway point of the curve
+        XCTAssert( path.contains(CGPoint(x: 1.49, y: 3)), "curve should contain 1.49, 3")
+        XCTAssert(!path.contains(CGPoint(x: 1.51, y: 3)), "curve should not contain 1.51, 3")
+    }
 }
