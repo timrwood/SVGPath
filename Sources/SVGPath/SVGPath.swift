@@ -14,7 +14,7 @@ import SwiftUI
 
 @available(OSX 10.15, *)
 public extension Path {
-    init (svgPath: String, offset: CGFloat = 0) {
+    init (svgPath: String, offset: CGPoint = .zero) {
         self.init()
         applyCommands(from: SVGPath(svgPath), offset: offset)
     }
@@ -22,11 +22,11 @@ public extension Path {
 
 @available(OSX 10.15, *)
 private extension Path {
-    mutating func applyCommands(from svgPath: SVGPath, offset: CGFloat) {
+    mutating func applyCommands(from svgPath: SVGPath, offset: CGPoint) {
         for command in svgPath.commands {
-            let point = CGPoint(x: command.point.x - offset, y: command.point.y - offset)
-            let control1 = CGPoint(x: command.control1.x - offset, y: command.control1.y - offset)
-            let control2 = CGPoint(x: command.control2.x - offset, y: command.control2.y - offset)
+            let point = CGPoint(x: command.point.x + offset.x, y: command.point.y + offset.y)
+            let control1 = CGPoint(x: command.control1.x + offset.x, y: command.control1.y + offset.y)
+            let control2 = CGPoint(x: command.control2.x + offset.x, y: command.control2.y + offset.y)
 
             switch command.type {
             case .move: self.move(to: point)

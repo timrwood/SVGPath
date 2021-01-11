@@ -116,8 +116,8 @@ class UIBezierPathTests: XCTestCase {
     }
 
     func testOffset() {
-        // CubeCurve with an offset of 2.0
-        let path = Path(svgPath: "M2 4C4 4 4 6 2 6Z", offset: 2)
+        // CubeCurve with an offset of -2.0, -2
+        let path = Path(svgPath: "M2 4C4 4 4 6 2 6Z", offset: CGPoint(x: -2, y: -2))
 
         // 4 corners
         XCTAssert( path.contains(CGPoint(x: 0.01, y: 2.01)), "curve should contain 0.01, 2.01")
