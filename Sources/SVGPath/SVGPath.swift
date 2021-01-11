@@ -8,29 +8,32 @@
 
 import Foundation
 import CoreGraphics
+import SwiftUI
 
 // MARK: UIBezierPath
 
-public extension UIBezierPath {
-    convenience init (svgPath: String, offset: CGFloat = 0) {
+@available(OSX 10.15, *)
+public extension Path {
+    init (svgPath: String, offset: CGFloat = 0) {
         self.init()
         applyCommands(from: SVGPath(svgPath), offset: offset)
     }
 }
 
-private extension UIBezierPath {
-    func applyCommands(from svgPath: SVGPath, offset: CGFloat) {
+@available(OSX 10.15, *)
+private extension Path {
+    mutating func applyCommands(from svgPath: SVGPath, offset: CGFloat) {
         for command in svgPath.commands {
             let point = CGPoint(x: command.point.x - offset, y: command.point.y - offset)
-            let controlPoint1 = CGPoint(x: command.control1.x - offset, y: command.control1.y - offset)
-            let controlPoint2 = CGPoint(x: command.control2.x - offset, y: command.control2.y - offset)
-            
+            let control1 = CGPoint(x: command.control1.x - offset, y: command.control1.y - offset)
+            let control2 = CGPoint(x: command.control2.x - offset, y: command.control2.y - offset)
+
             switch command.type {
-            case .move: move(to: point)
-            case .line: addLine(to: point)
-            case .quadCurve: addQuadCurve(to: point, controlPoint: controlPoint1)
-            case .cubeCurve: addCurve(to: point, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
-            case .close: close()
+            case .move: self.move(to: point)
+            case .line: self.addLine(to: point)
+            case .quadCurve: self.addQuadCurve(to: point, control: control1)
+            case .cubeCurve: self.addCurve(to: point, control1: control1, control2: control2)
+            case .close: self.closeSubpath()
             }
         }
     }
@@ -38,7 +41,7 @@ private extension UIBezierPath {
 
 // MARK: Enums
 
-fileprivate enum Coordinates {
+private enum Coordinates {
     case absolute
     case relative
 }
@@ -78,14 +81,14 @@ public class SVGPath {
         }
         finishLastCommand()
     }
-    
+
     private func use (_ coords: Coordinates, _ increment: Int, _ builder: @escaping SVGCommandBuilder) {
         finishLastCommand()
         self.builder = builder
         self.coords = coords
         self.increment = increment
     }
-    
+
     private func finishLastCommand () {
         for command in take(SVGPath.parseNumbers(numbers), increment: increment, coords: coords, last: commands.last, callback: builder) {
             commands.append(coords == .relative ? command.relative(to: commands.last) : command)
@@ -99,13 +102,12 @@ public class SVGPath {
 private let numberSet = CharacterSet(charactersIn: "-.0123456789eE")
 private let locale = Locale(identifier: "en_US")
 
-
 public extension SVGPath {
     class func parseNumbers (_ numbers: String) -> [CGFloat] {
-        var all:[String] = []
+        var all: [String] = []
         var curr = ""
         var last = ""
-        
+
         for char in numbers.unicodeScalars {
             let next = String(char)
             if next == "-" && last != "" && last != "E" && last != "e" {
@@ -121,9 +123,9 @@ public extension SVGPath {
             }
             last = next
         }
-        
+
         all.append(curr)
-        
+
         return all.map { CGFloat(truncating: NSDecimalNumber(string: $0, locale: locale)) }
     }
 }
@@ -131,11 +133,11 @@ public extension SVGPath {
 // MARK: Commands
 
 public struct SVGCommand {
-    public var point:CGPoint
-    public var control1:CGPoint
-    public var control2:CGPoint
-    public var type:Kind
-    
+    public var point: CGPoint
+    public var control1: CGPoint
+    public var control2: CGPoint
+    public var type: Kind
+
     public enum Kind {
         case move
         case line
@@ -143,34 +145,34 @@ public struct SVGCommand {
         case quadCurve
         case close
     }
-    
+
     public init () {
         let point = CGPoint()
         self.init(point, point, point, type: .close)
     }
-    
+
     public init (_ x: CGFloat, _ y: CGFloat, type: Kind) {
         let point = CGPoint(x: x, y: y)
         self.init(point, point, point, type: type)
     }
-    
+
     public init (_ cx: CGFloat, _ cy: CGFloat, _ x: CGFloat, _ y: CGFloat) {
         let control = CGPoint(x: cx, y: cy)
         self.init(control, control, CGPoint(x: x, y: y), type: .quadCurve)
     }
-    
+
     public init (_ cx1: CGFloat, _ cy1: CGFloat, _ cx2: CGFloat, _ cy2: CGFloat, _ x: CGFloat, _ y: CGFloat) {
         self.init(CGPoint(x: cx1, y: cy1), CGPoint(x: cx2, y: cy2), CGPoint(x: x, y: y), type: .cubeCurve)
     }
-    
+
     public init (_ control1: CGPoint, _ control2: CGPoint, _ point: CGPoint, type: Kind) {
         self.point = point
         self.control1 = control1
         self.control2 = control2
         self.type = type
     }
-    
-    fileprivate func relative (to other:SVGCommand?) -> SVGCommand {
+
+    fileprivate func relative (to other: SVGCommand?) -> SVGCommand {
         if let otherPoint = other?.point {
             return SVGCommand(control1 + otherPoint, control2 + otherPoint, point + otherPoint, type: type)
         }
@@ -180,11 +182,11 @@ public struct SVGCommand {
 
 // MARK: CGPoint helpers
 
-private func +(a:CGPoint, b:CGPoint) -> CGPoint {
+private func +(a: CGPoint, b: CGPoint) -> CGPoint {
     return CGPoint(x: a.x + b.x, y: a.y + b.y)
 }
 
-private func -(a:CGPoint, b:CGPoint) -> CGPoint {
+private func -(a: CGPoint, b: CGPoint) -> CGPoint {
     return CGPoint(x: a.x - b.x, y: a.y - b.y)
 }
 
@@ -194,11 +196,11 @@ private typealias SVGCommandBuilder = ([CGFloat], SVGCommand?, Coordinates) -> S
 
 private func take (_ numbers: [CGFloat], increment: Int, coords: Coordinates, last: SVGCommand?, callback: SVGCommandBuilder) -> [SVGCommand] {
     var out: [SVGCommand] = []
-    var lastCommand:SVGCommand? = last
+    var lastCommand: SVGCommand? = last
 
     let count = (numbers.count / increment) * increment
-    var nums:[CGFloat] = [0, 0, 0, 0, 0, 0];
-    
+    var nums: [CGFloat] = [0, 0, 0, 0, 0, 0]
+
     for i in stride(from: 0, to: count, by: increment) {
         for j in 0 ..< increment {
             nums[j] = numbers[i + j]
@@ -206,7 +208,7 @@ private func take (_ numbers: [CGFloat], increment: Int, coords: Coordinates, la
         lastCommand = callback(nums, lastCommand, coords)
         out.append(lastCommand!)
     }
-    
+
     return out
 }
 
