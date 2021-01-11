@@ -1,3 +1,0 @@
-osx_image: xcode8
-language: objective-c
-script: set -o pipefail && xcodebuild test -project SVGPath.xcodeproj -scheme SVGPath -sdk iphonesimulator10.0 -destination 'platform=iOS Simulator,name=iPhone 7' | xcpretty -c
