@@ -1,3 +1,7 @@
+### Notice: No maintanence intended
+
+This project is no longer maintained as I no longer actively develop in Swift. If anyone is interested in taking over ownership, please open an issue and I can work on transferring ownership.
+
 ![SVGPath](https://cloud.githubusercontent.com/assets/643885/5913982/181a66d4-a5a2-11e4-8939-aed6ca190982.png)
 
 [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url] [![SVGPath on CocoaPods][cocoapods-image]][cocoapods-url]
